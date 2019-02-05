@@ -11,6 +11,7 @@ int 	l_strlen(char *str)
 }
 long 	calc_len_mod(t_fmt *f, va_list ap)
 {
+<<<<<<< HEAD
 	long n;
 	if (f->len_modif == H)
 		n = ((short)va_arg(ap, long));
@@ -23,6 +24,17 @@ long 	calc_len_mod(t_fmt *f, va_list ap)
 	else
 		n = (int)(va_arg(ap, long));
 	return(n);
+=======
+	if (f->len_modif == H)
+		return ((short)va_arg(ap, long));
+	else if (f->len_modif == HH)
+		return ((char)va_arg(ap, long));
+	else if (f->len_modif == L)
+		return (va_arg(ap, long));
+	else if (f->len_modif == H)
+		return ((long long)va_arg(ap, long));
+	return (va_arg(ap, long));
+>>>>>>> cbf43dc43f4d1a30b6c95dbd16159741680ef000
 }
 void	print_decimal(const char *fmt, t_fmt *f, va_list ap)
 {
@@ -31,6 +43,7 @@ void	print_decimal(const char *fmt, t_fmt *f, va_list ap)
 
 	n = calc_len_mod(f, ap);
 	num = ft_ltoa(n);
+<<<<<<< HEAD
 	while (f->field_width > (n < 0 ? l_strlen(num) : l_strlen(num) + 1) && f->field_width-- > f->precision)
 		write(1, " ", 1);
 	if (f->plus)
@@ -42,6 +55,14 @@ void	print_decimal(const char *fmt, t_fmt *f, va_list ap)
 				f->curr_len++;
 		}
 	write(1, ((num[0] == '-') ? (++num) : num), l_strlen(num));
+=======
+	if (f->plus)
+	{
+
+	}
+	f->total_len = l_strlen(ft_ltoa(n));
+	write(1, num, l_strlen(num));
+>>>>>>> cbf43dc43f4d1a30b6c95dbd16159741680ef000
 }
 
 void	print_float(const char *fmt, t_fmt *f, va_list ap)
