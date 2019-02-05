@@ -16,7 +16,7 @@ long	calc_len(long n, long count)
 }
 
 
-ft_write_with_len(const char *fmt, t_fmt *f, va_list ap)
-{
+/*ft_write_with_len(const char *fmt, t_fmt *f, va_list ap)*/
+/*{*/
 
-}
+/*}*/

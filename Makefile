@@ -1,4 +1,4 @@
-SRC = ft_printf.c parser.c
+SRC = ft_printf.c parser.c ft_format_create.c ft_print_type.c print_utils.c
 
 HEAD = ft_printf.h
 

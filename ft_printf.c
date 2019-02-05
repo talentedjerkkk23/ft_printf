@@ -7,11 +7,8 @@ int	ft_printf(const char *fmt, ...)
 	t_fmt *f;
 
 	f = (t_fmt*)malloc(sizeof(t_fmt));
-<<<<<<< HEAD
 	reset_format(f);
 	f->total_len = 0;
-=======
->>>>>>> cbf43dc43f4d1a30b6c95dbd16159741680ef000
 	va_start(argp, fmt);
 	ft_parse_args(fmt, f, argp);
 	va_end(argp);
@@ -35,7 +32,7 @@ void print_address_hex(void* p0) {
 		ft_putchar(hex_digit((p >> i) & 0xf));
 	}
 }
-<<<<<<< HEAD
+
 void	decimal_checker()
 {
 	ft_printf("my: %+5d\n", 023);
@@ -47,10 +44,8 @@ void	decimal_checker()
 	ft_printf("my: %+5d\n", -2035065302);
 	printf("og: %+5d\n", -2035065302);
 }
-=======
 
 
->>>>>>> cbf43dc43f4d1a30b6c95dbd16159741680ef000
 int main()
 {
 	int		integer = 1223;
@@ -58,18 +53,15 @@ int main()
 	char	c = 'a';
 	char	*c_ptr = &c;
 	char	*str = "string!";
-<<<<<<< HEAD
 	int n = 221322;
 	decimal_checker();
 	//print_address_hex((void*) str);
 	ft_printf("%10.12d\n", n);
 	printf("%10.12d\n", n);
-=======
 
 	//print_address_hex((void*) str);
 	ft_printf("%0.321d\n", 12);
 	printf("%d\n", 12);
->>>>>>> cbf43dc43f4d1a30b6c95dbd16159741680ef000
 //	printf("%lu\n", sizeof(t_fmt));
 //	printf("%p\a\n", (void*)str);
 //	printf("int: %.5d \nfloat: %f\nchar: %c\nchar*: %s\n", integer, real_num, c, str);

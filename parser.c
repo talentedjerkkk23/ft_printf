@@ -92,10 +92,7 @@ int		ft_parse_args(const char *fmt, t_fmt *f, va_list ap)
 			{
 				print(fmt, f, ap);
 			}
-<<<<<<< HEAD
 			reset_format(f);
-=======
->>>>>>> cbf43dc43f4d1a30b6c95dbd16159741680ef000
 		}
 		else
 		{
