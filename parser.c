@@ -2,7 +2,7 @@
 
 void	set_len_modif(const char *fmt, t_fmt *f)
 {
-	while (ft_strchr("hlL", fmt[f->i]))
+	if (ft_strchr("hlL", fmt[f->i]))
 	{
 		if (fmt[f->i] == 'h')
 		{
@@ -32,10 +32,12 @@ void	set_len_modif(const char *fmt, t_fmt *f)
 void 	set_precision(const char *fmt, t_fmt *f)
 {
 	if (fmt[f->i] == '.')
+	{
 		(f->i)++;
-	f->precision = ft_atoi(&fmt[f->i]);
-	while (ft_isdigit(fmt[f->i]))
-		(f->i)++;
+		f->precision = ft_atoi(&fmt[f->i]);
+		while (ft_isdigit(fmt[f->i]))
+			(f->i)++;
+	}
 }
 
 void 	set_width(const char *fmt, t_fmt *f)
@@ -50,7 +52,7 @@ void 	set_width(const char *fmt, t_fmt *f)
 
 void 	set_flags(const char *fmt, t_fmt *f)
 {
-	while (ft_strchr(" #+-0", fmt[f->i]))
+	if (ft_strchr(" #+-0", fmt[f->i]))
 	{
 			if (fmt[f->i] == '#')
 				f->hash = 1;
@@ -68,10 +70,13 @@ void 	set_flags(const char *fmt, t_fmt *f)
 
 void	ft_set_output_format(const char *fmt, t_fmt *f)
 {
-	set_flags(fmt, f);
-	set_width(fmt, f);
-	set_precision(fmt, f);
-	set_len_modif(fmt, f);
+	while (ft_strchr(" -+#.0123456789hlL", fmt[f->i]))
+	{
+		set_flags(fmt, f);
+		set_width(fmt, f);
+		set_precision(fmt, f);
+		set_len_modif(fmt, f);
+	}
 }
 /*
  *
