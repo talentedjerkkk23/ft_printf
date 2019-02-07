@@ -15,25 +15,11 @@ int	ft_printf(const char *fmt, ...)
 	return (1);
 }
 
-char hex_digit(int n)
-{
-	if (n >= 0 && n < 10)
-		return ('0' + n);
-	else
-		return ('a' + n - 10);
-}
 
-void print_address_hex(void* p0) {
-	int i;
-	unsigned long p = (unsigned long)p0;
-	ft_putchar('0');
-	ft_putchar('x');
-	for(i = (sizeof(p) << 3) - 4; i >= 0; i -= 4) {
-		ft_putchar(hex_digit((p >> i) & 0xf));
-	}
-}
 
-void	decimal_checker()
+
+
+void decimal_checker()
 {
 	printf("\n<|############################|>\n");
 
@@ -51,6 +37,8 @@ void	decimal_checker()
 
 	ft_printf("my: %+14d|\n", 0);
 	printf("og: %+14d|\n", 0);
+	ft_printf("my: %+14d|\n", 12);
+	printf("og: %+14d|\n", 12);
 	ft_printf("my: %+14d|\n", -7);
 	printf("og: %+14d|\n", -7);
 	ft_printf("my: %+14d|\n", 1560133635);
@@ -59,7 +47,6 @@ void	decimal_checker()
 	printf("og: %+14d|\n", -2035065302);
 
 	// SPACE
-	long double a = 2.2323;
 	printf("\n<|############################|>\n");
 
 	ft_printf("my: %05d|\n", 0);
@@ -73,15 +60,14 @@ void	decimal_checker()
 	ft_printf("my: %05d|\n", -2035065302);
 	printf("og: %05d|\n", -2035065302);
 
-	printf("\n<|############################|>\n");
 
-	printf("<|######--RIGHT  ALIGN--######|>\n");
+	printf("\n<|######--RIGHT  ALIGN--######|>\n");
 	// RIGHT ALIGN
 	ft_printf("my: %+-5d|\n", 0);
 	printf("og: %+-5d|\n", 0);
 	ft_printf("my: %+-5d|\n", -7);
 	printf("og: %+-5d|\n", -7);
-	ft_printf("my: %+-5|d\n", 1560133635);
+	ft_printf("my: %+-5d|\n", 1560133635);
 	printf("og: %+-5d|\n", 1560133635);
 	ft_printf("my: %+-5d|\n", -2035065302);
 	printf("og: %+-5d|\n", -2035065302);
@@ -94,18 +80,120 @@ void	decimal_checker()
 	printf("og: %-05d|\n", -7);
 	ft_printf("my: %-012d|\n", 120);
 	printf("og: %-012d|\n", 120);
+	ft_printf("my: %-012d|\n", -120);
+	printf("og: %-012d|\n", -120);
 	ft_printf("my: %-05d|\n", 1560133635);
 	printf("og: %-05d|\n", 1560133635);
 	ft_printf("my: %-05d|\n", -2035065302);
 	printf("og: %-05d|\n", -2035065302);
 
 	printf("\n<|########--PRECISION--#######|>\n");
-	ft_printf("my: % ++.9+0.9d|\n", 7);
-	printf("og: % -+.9d|\n", 7);
+
+	ft_printf("my: %-+.9d|\n", 7);
+	printf("og: %-+.9d|\n", 7);
+	ft_printf("my: %-+.9d|\n", -7);
+	printf("og: %-+.9d|\n", -7);
+	ft_printf("my: %-.15d|\n", 722);
+	printf("og: %-.15d|\n", 722);;
+	ft_printf("my: %+.5d|\n", 7);
+	printf("og: %+.5d|\n", 7);
+	ft_printf("my: %+.1d|\n", 7);
+	printf("og: %+.1d|\n", 7);
+	ft_printf("my: %.d|\n", 7);
+	printf("og: %.d|\n", 7);
+	ft_printf("my: %.-1d|\n", 7);
+	printf("og: %.-1d|\n", 7);
+
 	printf("\n<|############################|>\n");
 }
 
+void	unsigned_decimal_checker()
+{
+	printf("\n<|############################|>\n");
 
+	ft_printf("my: %u|\n", 0);
+	printf("og: %u|\n", 0);
+	ft_printf("my: %u|\n", -7);
+	printf("og: %u|\n", -7);
+	ft_printf("my: %u|\n", 1560133635);
+	printf("og: %u|\n", 1560133635);
+	ft_printf("my: %u|\n", -2035065302);
+	printf("og: %u|\n", -2035065302);
+
+	// PLUS
+	printf("\n<|############################|>\n");
+
+	ft_printf("my: %+14u|\n", 0);
+	printf("og: %+14u|\n", 0);
+	ft_printf("my: %+14u|\n", 12);
+	printf("og: %+14u|\n", 12);
+	ft_printf("my: %+14u|\n", -7);
+	printf("og: %+14u|\n", -7);
+	ft_printf("my: %+14u|\n", 1560133635);
+	printf("og: %+14u|\n", 1560133635);
+	ft_printf("my: %+14u|\n", -2035065302);
+	printf("og: %+14u|\n", -2035065302);
+
+	// SPACE
+	printf("\n<|############################|>\n");
+
+	ft_printf("my: %05u|\n", 0);
+	printf("og: %05u|\n", 0);
+	ft_printf("my: %05u|\n", -7);
+	printf("og: %05u|\n", -7);
+	ft_printf("my: %012u|\n", 120);
+	printf("og: %012u|\n", 120);
+	ft_printf("my: %05u|\n", 1560133635);
+	printf("og: %05u|\n", 1560133635);
+	ft_printf("my: %05u|\n", -2035065302);
+	printf("og: %05u|\n", -2035065302);
+
+
+	printf("\n<|######--RIGHT  ALIGN--######|>\n");
+	// RIGHT ALIGN
+	ft_printf("my: %+-5u|\n", 0);
+	printf("og: %+-5u|\n", 0);
+	ft_printf("my: %+-5u|\n", -7);
+	printf("og: %+-5u|\n", -7);
+	ft_printf("my: %+-5u|\n", 1560133635);
+	printf("og: %+-5u|\n", 1560133635);
+	ft_printf("my: %+-5u|\n", -2035065302);
+	printf("og: %+-5u|\n", -2035065302);
+
+	printf("\n<|############################|>\n");
+
+	ft_printf("my: %-05u|\n", 0);
+	printf("og: %-05u|\n", 0);
+	ft_printf("my: %-05u|\n", -7);
+	printf("og: %-05u|\n", -7);
+	ft_printf("my: %-012u|\n", 120);
+	printf("og: %-012u|\n", 120);
+	ft_printf("my: %-012u|\n", -120);
+	printf("og: %-012u|\n", -120);
+	ft_printf("my: %-05u|\n", 1560133635);
+	printf("og: %-05u|\n", 1560133635);
+	ft_printf("my: %-05u|\n", -2035065302);
+	printf("og: %-05u|\n", -2035065302);
+
+	printf("\n<|########--PRECISION--#######|>\n");
+
+	ft_printf("my: %-+.9u|\n", 7);
+	printf("og: %-+.9u|\n", 7);
+	ft_printf("my: %-+.9u|\n", -7);
+	printf("og: %-+.9u|\n", -7);
+	ft_printf("my: %-.15u|\n", 722);
+	printf("og: %-.15u|\n", 722);;
+	ft_printf("my: %+.5u|\n", 7);
+	printf("og: %+.5u|\n", 7);
+	ft_printf("my: %+.1u|\n", 7);
+	printf("og: %+.1u|\n", 7);
+	ft_printf("my: %.u|\n", 7);
+	printf("og: %.u|\n", 7);
+	ft_printf("my: %.-1u|\n", 7);
+	printf("og: %.-1u|\n", 7);
+
+	printf("\n<|############################|>\n");
+}
 int main()
 {
 	int		integer = 1223;
@@ -114,6 +202,9 @@ int main()
 	char	*c_ptr = &c;
 	char	*str = "string!";
 	int n = 221322;
-	decimal_checker();
+//	decimal_checker();
+
+	unsigned_decimal_checker();
+	/*printf("itoa_bas	decimal_checker();e: %s\n", itoa_base(15, 16));*/
 	return (0);
 }
