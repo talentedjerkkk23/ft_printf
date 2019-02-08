@@ -225,20 +225,26 @@ void	hex_checker()
 	ft_printf("my: %+14x|\n", -2035065302);
 	printf("og: %+14x|\n", -2035065302);
 
-	ft_printf("my: %#+13.5lx|\n", 0);
-	printf("og: %#+13.5lx|\n", 0);
+	printf("\n<|############################|>\n");
+
+	ft_printf("my: %#13.5lx|\n", 0);
+	printf("og: %#13.5lx|\n", 0);
+	ft_printf("my: %#+13.10lx|\n", 0);
+	printf("og: %#+13.10lx|\n", 0);
 	ft_printf("my: %#+16.5lx|\n", 42);
 	printf("og: %#+16.5lx|\n", 42);;
 	ft_printf("my: %#+5x|\n", -7);
 	printf("og: %#+5x|\n", -7);
-	ft_printf("my: %+-5x|\n", 1560133635);
+	ft_printf("my: %+5x|\n", 1560133635);
 	printf("og: %+5x|\n", 1560133635);
 	ft_printf("my: %+5x|\n", -2035065302);
 	printf("og: %+5x|\n", -2035065302);
 
 
-	ft_printf("my: %05x|\n", 0);
-	printf("og: %05x|\n", 0);
+	printf("\n<|############################|>\n");
+
+	ft_printf("my: %5x|\n", 0);
+	printf("og: %5x|\n", 0);
 	ft_printf("my: %05x|\n", -7);
 	printf("og: %05x|\n", -7);
 	ft_printf("my: %012x|\n", 120);
@@ -249,20 +255,31 @@ void	hex_checker()
 	printf("og: %#05x|\n", 1560133635);
 	ft_printf("my: %05x|\n", -2035065302);
 	printf("og: %05x|\n", -2035065302);
+	ft_printf("my: %10.07x|\n", 123456);
+	printf("og: %10.07x|\n", 123456);
+	ft_printf("my: %10.05x|\n", 123456);
+	printf("og: %10.05x|\n", 123456);
 
-	printf("\n<|##########--SPACE--##########|>\n");
-
-	ft_printf("my: %05x|\n", 0);
-	printf("og: %05x|\n", 0);
+	printf("\n<|######--RIGHT  ALIGN--######|>\n");
+	// RIGHT ALIGN
+	ft_printf("my: %#-+13.5lx|\n", 0);
+	printf("og: %#-+13.5lx|\n", 0);
+	ft_printf("my: %#-+16.5lx|\n", 42);
+	printf("my: %#-+16.5lx|\n", 42);
 	ft_printf("my: %05x|\n", -7);
 	printf("og: %05x|\n", -7);
-	ft_printf("my: %#012x|\n", 1212);
-	printf("og: %#012x|\n", 1212);
-	ft_printf("my: %05x|\n", 1560133635);
-	printf("og: %05x|\n", 1560133635);
+	ft_printf("my: %012x|\n", 120);
+	printf("og: %012x|\n", 120);
+	ft_printf("my: %012x|\n", -120);
+	printf("og: %012x|\n", -120);
+	ft_printf("my: %#05x|\n", 1560133635);
+	printf("og: %#05x|\n", 1560133635);
 	ft_printf("my: %05x|\n", -2035065302);
 	printf("og: %05x|\n", -2035065302);
-
+	ft_printf("my: %10.07x|\n", 123456);
+	printf("og: %10.07x|\n", 123456);
+	ft_printf("my: %10.05x|\n", 123456);
+	printf("og: %10.05x|\n", 123456);
 
 	printf("\n<|######--RIGHT  ALIGN--######|>\n");
 	// RIGHT ALIGN
@@ -291,23 +308,6 @@ void	hex_checker()
 	ft_printf("my: %-05x|\n", -2035065302);
 	printf("og: %-05x|\n", -2035065302);
 
-	printf("\n<|########--PRECISION--#######|>\n");
-
-	ft_printf("my: %-+.9x|\n", 7);
-	printf("og: %-+.9x|\n", 7);
-	ft_printf("my: %-+.9x|\n", -7);
-	printf("og: %-+.9x|\n", -7);
-	ft_printf("my: %-.15x|\n", 722);
-	printf("og: %-.15x|\n", 722);;
-	ft_printf("my: %+.5x|\n", 7);
-	printf("og: %+.5x|\n", 7);
-	ft_printf("my: %+.1x|\n", 7);
-	printf("og: %+.1x|\n", 7);
-	ft_printf("my: %#.x|\n", 7);
-	printf("og: %#.x|\n", 7);
-	ft_printf("my: %.-1x|\n", 7);
-	printf("og: %.-1x|\n", 7);
-
 	printf("\n<|############################|>\n");
 }
 
@@ -327,10 +327,14 @@ int main()
 	long int    lnb_neg = LONG_MIN;
 	long int    lnb_0 = 0;
 
-	ft_printf("Faux : |||%ld||| %ld |||-%ld/\n", lnb, lnb_neg, lnb_0);
-	printf("Vrai : |||%ld||| %ld |||-%ld/\n", lnb, lnb_neg, lnb_0);
-	ft_printf("Faux : |||%ld||| %ld |||-%ld/\n", lnb, lnb_neg - 1, lnb_0);
-	printf("Vrai : |||%ld||| %ld |||-%ld/\n", lnb, lnb_neg - 1, lnb_0);
+	ft_printf("\n%08x|\n", 12);
+	printf("\n%08x|\n", 12);
+
+
+//	ft_printf("Faux : |||%ld||| %ld |||-%ld/\n", lnb, lnb_neg, lnb_0);
+//	printf("Vrai : |||%ld||| %ld |||-%ld/\n", lnb, lnb_neg, lnb_0);
+//	ft_printf("Faux : |||%ld||| %ld |||-%ld/\n", lnb, lnb_neg - 1, lnb_0);
+//	printf("Vrai : |||%ld||| %ld |||-%ld/\n", lnb, lnb_neg - 1, lnb_0);
 	/*printf("itoa_bas	decimal_checker();e: %s\n", itoa_base(15, 16));*/
 	return (0);
 }

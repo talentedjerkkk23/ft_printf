@@ -42,7 +42,7 @@ char				*ft_strsub(char const *s, unsigned int start, size_t len);
 void				ft_strdel(char **as);
 int					ft_atoi(const char *str);
 char				*ft_itoa(int n);
-char				*ft_ltoa(long n);
+char				*ft_ltoa(long long n);
 char				*ft_itoa_base(long value, int base, short mode);
 void				*ft_memset(void *b, int c, size_t len);
 void				*ft_memmove(void *dst, const void *src, size_t len);

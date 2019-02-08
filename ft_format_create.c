@@ -8,7 +8,9 @@ void	reset_format(t_fmt *f)
 	f->minus = 0;
 	f->zero = 0;
 	f->space = 0;
-	f->precision = -1;
+	f->precision = 0;
 	f->len_modif = 0;
+	f->have_prec = 0;
 	f->field_width = 0;
+	f->mode = 0;
 }

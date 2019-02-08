@@ -22,7 +22,7 @@ INCLUDES = libft.h
 
 all: $(NAME)
 
-%.o: %.c 
+%.o: %.c
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME): $(OBJECTS)

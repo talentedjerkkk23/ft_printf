@@ -34,7 +34,10 @@ void 	set_precision(const char *fmt, t_fmt *f)
 	if (fmt[f->i] == '.')
 	{
 		(f->i)++;
+		while (fmt[f->i] == '0')
+			(f->i)++;
 		f->precision = ft_atoi(&fmt[f->i]);
+		f->have_prec = 1;
 		while (ft_isdigit(fmt[f->i]))
 			(f->i)++;
 	}

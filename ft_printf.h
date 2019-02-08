@@ -31,6 +31,7 @@ typedef struct	s_fmt
 	int		field_width;
 	int 	len_modif;
 	int		precision;
+	short 	have_prec;
 	short 	mode;
 }				t_fmt;
 

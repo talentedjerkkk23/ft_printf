@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "libft.h"
 
-static int	calc_len(long n)
+static int	calc_len(long long n)
 {
 	int	len;
 
@@ -20,7 +20,7 @@ static int	calc_len(long n)
 	return (len);
 }
 
-char		*ft_ltoa(long n)
+char		*ft_ltoa(long long n)
 {
 	int		count;
 	char	*number;
@@ -28,8 +28,8 @@ char		*ft_ltoa(long n)
 	count = calc_len(n);
 	if (n == 9223372036854775807 || n == 0)
 		return (n == 0 ? ft_strdup("0") : ft_strdup("9223372036854775807"));
-	if (n == -9223372036854775808)
-		return (ft_strdup("-9223372036854775808"));
+	if (n == -9223372036854775807)
+		return (ft_strdup("-9223372036854775807"));
 	if (!(number = (char*)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
 	number[count] = '\0';
