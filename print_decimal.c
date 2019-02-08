@@ -82,7 +82,7 @@ static void	write_right_align(t_fmt *f, char *num, long n, int num_len)
 		f->total_len += write(1, " ", 1);
 }
 
-void	print_decimal(const char *fmt, t_fmt *f, va_list ap)
+void	print_decimal(t_fmt *f, va_list ap)
 {
 	long n;
 	char *num;

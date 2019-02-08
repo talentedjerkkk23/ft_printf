@@ -52,7 +52,7 @@ void 	set_width(const char *fmt, t_fmt *f)
 
 void 	set_flags(const char *fmt, t_fmt *f)
 {
-	if (ft_strchr(" #+-0", fmt[f->i]))
+	while (ft_strchr(" #+-0", fmt[f->i]))
 	{
 			if (fmt[f->i] == '#')
 				f->hash = 1;

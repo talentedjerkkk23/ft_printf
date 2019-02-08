@@ -31,9 +31,12 @@ typedef struct	s_fmt
 	int		field_width;
 	int 	len_modif;
 	int		precision;
+	short 	mode;
 }				t_fmt;
-void			print_unsigned_decimal(const char *fmt, t_fmt *f, va_list ap);
-void			print_decimal(const char *fmt, t_fmt *f, va_list ap);
+
+void			print_hex(short mode, t_fmt *f, va_list ap);
+void			print_unsigned_decimal(t_fmt *f, va_list ap);
+void			print_decimal(t_fmt *f, va_list ap);
 long			calc_len(long n, long count);
 int     		ft_parse_args(const char *fmt, t_fmt *f, va_list ap);
 void			reset_format(t_fmt *f);
