@@ -16,6 +16,20 @@
 # define MINUS 3
 # define ZERO 4
 # define SPACE 5
+
+typedef union	s_double {
+	double f;
+	unsigned long u;
+}				t_double;
+
+typedef union	s_float {
+	float f;
+	unsigned u;
+	unsigned char exp;
+	unsigned long mantissa;
+	char *sign;
+}				t_float;
+
 typedef struct	s_fmt
 {
 	int		fd;
@@ -35,6 +49,9 @@ typedef struct	s_fmt
 	short 	mode;
 }				t_fmt;
 
+void			print_floating_point(t_fmt *f, va_list ap);
+void			print_char(t_fmt *f, va_list ap);
+void			print_octal(t_fmt *f, va_list ap);
 void			print_hex(short mode, t_fmt *f, va_list ap);
 void			print_unsigned_decimal(t_fmt *f, va_list ap);
 void			print_decimal(t_fmt *f, va_list ap);

@@ -104,7 +104,7 @@ int		ft_parse_args(const char *fmt, t_fmt *f, va_list ap)
 		}
 		else
 		{
-			write(1, &fmt[f->i], 1);
+			f->total_len += write(1, &fmt[f->i], 1);
 		}
 		(f->i)++;
 	}

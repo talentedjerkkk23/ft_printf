@@ -1,5 +1,6 @@
 
 
+#include <math.h>
 #include "ft_printf.h"
 
 static int 	l_strlen(char *str)
@@ -11,7 +12,7 @@ static int 	l_strlen(char *str)
 		i++;
 	return (i);
 }
-static unsigned long	calc_len_mod(t_fmt *f, va_list ap)
+static long double	calc_len_mod(t_fmt *f, va_list ap)
 {
 	long double n;
 	if (f->len_modif == L)
@@ -19,23 +20,25 @@ static unsigned long	calc_len_mod(t_fmt *f, va_list ap)
 	else if (f->len_modif == LL)
 		n =  (va_arg(ap, long double));
 	else
-		n = (unsigned int)(va_arg(ap, float));
+		n = (float)(va_arg(ap, double));
 	return(n);
 }
 
+int n_tu(int number, int count)
+{
+	int result = 1;
+	while(count-- > 0)
+		result *= number;
+
+	return result;
+}
+
+/*** Convert float to string ***/
 static void	write_left_align(t_fmt *f, char *num, unsigned long n, int num_len)
 {
 	int		i;
 
 	i = (n < 0) ? 1 : 0;
-	if ((f->space || f->plus) && f->precision == -1)
-		f->total_len += write(1, " ", 1);
-	while (!f->zero && f->precision == -1 && f->field_width-- > (num_len + ((n < 0) ? 0 : 1)))
-		f->total_len += write(1, " ", 1);
-	while (f->zero && f->field_width-- > (num_len))
-		f->total_len += write(1, "0", 1);
-	while (f->precision-- > num_len)
-		f->total_len += write(1, "0", 1);
 	while (num[i])
 		f->total_len += write(1, &num[i++], 1);
 }
@@ -44,30 +47,21 @@ static void	write_right_align(t_fmt *f, char *num, unsigned long n, int num_len)
 {
 	int i;
 	i = (n < 0) ? 1 : 0;
-	if (f->precision > num_len)
-	{
-		while (f->precision-- > (num_len))
-			f->total_len += write(1, "0", 1);
-	}
 	while (num[i])
 		f->total_len += write(1, &num[i++], 1);
-	while (f->precision >= 0 && f->field_width >= num_len && f->field_width-- > f->precision)
-		f->total_len += write(1, " ", 1);
-	while (f->plus && f->field_width-- > (num_len) && f->precision == -1)
-		f->total_len += write(1, " ", 1);
-	while (!f->plus && f->field_width-- > (num_len ) && f->precision == -1)
-		f->total_len += write(1, " ", 1);
 }
 
 void	print_floating_point(t_fmt *f, va_list ap)
 {
-	unsigned long n;
+	long double n;
 	char *num;
 	int num_len;
-
+	int size;
 	n = calc_len_mod(f, ap);
-	num = ft_ltoa(n);
+
 	num_len = l_strlen(num);
+	if (!f->have_prec)
+		f->precision = 6;
 	if (f->minus)
 		f->zero = 0;
 	if (f->plus)

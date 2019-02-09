@@ -37,8 +37,6 @@ static void	write_left_align(t_fmt *f, char *num, unsigned long n, int num_len)
 	if (f->hash && n != 0)
 	{
 		f->total_len += write(1, (f->mode == 1 ? "0x" : "0X"), 2);
-//		if (f->field_width != 0)
-//			f->field_width -= 2;
 	}
 	while (f->precision-- > num_len)
 		f->total_len += write(1, "0", 1);
@@ -54,46 +52,17 @@ static void	write_right_align(t_fmt *f, char *num, unsigned long n, int num_len)
 
 	i = 0;
 	if (f->hash && n != 0)
-	{
 		f->total_len += write(1, (f->mode == 1 ? "0x" : "0X"), 2);
-		if (f->field_width != 0)
-			f->field_width -= 2;
+	while (f->precision-- > num_len && f->field_width)
+	{
+		f->field_width--;
+		f->total_len += write(1, "0", 1);
 	}
-	while (f->precision-- > num_len)
-		f->total_len += write(1, "0", 1);
-	while (f->zero && f->field_width-- > (num_len))
-		f->total_len += write(1, "0", 1);
 	while (num[i])
 		f->total_len += write(1, &num[i++], 1);
-	while (!f->zero && f->precision <= num_len && f->field_width-- > num_len)
-		f->total_len += write(1, " ", 1);
-	while (!f->zero && f->have_prec && f->field_width-- > (f->precision))
-		f->total_len += write(1, " ", 1);
+	while (!f->zero && num_len < f->field_width--)
+		f->total_len += write(1, "  ", 1);
 }
-
-//static void	write_right_align(t_fmt *f, char *num, unsigned long n, int num_len)
-//{
-//	int i;
-//	int pres;
-//
-//	pres = f->precision;
-//	i = (n < 0) ? 1 : 0;
-//	if (f->precision > num_len)
-//	{
-//		while (f->precision-- > (num_len))
-//		{
-//			f->total_len += write(1, "0", 1);
-//		}
-//	}
-//	while (num[i])
-//		f->total_len += write(1, &num[i++], 1);
-//	while (f->field_width-- > (pres - num_len) && f->precision != -1)
-//		f->total_len += write(1, "1", 1);
-//	while (!f->plus && f->field_width-- > (num_len ) && f->precision == -1)
-//		f->total_len += write(1, "2", 1);
-//	while (f->plus && f->field_width-- > (num_len ) && f->precision == -1)
-//		f->total_len += write(1, "3", 1);
-//}
 
 void	print_hex(short mode, t_fmt *f, va_list ap)
 {
