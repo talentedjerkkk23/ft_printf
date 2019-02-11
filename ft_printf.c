@@ -431,31 +431,32 @@ void	float_checker()
 	printf("og: %-3.f|\n", 42.123312);
 }
 
-void	convert_double_to_binary(double n)
-{
-	int		i;
-	t_double dbl;
-	unsigned long  binary_arr[1000];
-	dbl.f = n;
-	i = 0;
-	int j;
-	while (dbl.u > 0)
-	{
-		binary_arr[i] = dbl.u % 2;
-		dbl.u = dbl.u / 2;
-		i++;
-	}
-	j = i - 1;
-	while (j >= 0)
-	{
-//		printf("%d\n", j);
-		unsigned char c = binary_arr[j] + '0';
-		write(1, &c, 1);
-		if ((j % 8) == 0)
-			write(1, " ", 1);
-		j--;
-	}
-}
+/*void	convert_double_to_binary(double n)*/
+/*{*/
+	/*int		i;*/
+	/*t_double dbl;*/
+	/*unsigned long  binary_arr[1000];*/
+	/*unsigned long arr[1000];*/
+	/*dbl.f = n;*/
+	/*i = 0;*/
+	/*int j;*/
+	/*while (dbl.u > 0)*/
+	/*{*/
+		/*binary_arr[i] = dbl.u % 2;*/
+		/*dbl.u = dbl.u / 2;*/
+		/*i++;*/
+	/*}*/
+	/*j = i - 1;*/
+	/*while (j >= 0)*/
+	/*{*/
+/*//		printf("%d\n", j);*/
+		/*unsigned char c = binary_arr[j] + '0';*/
+		/*write(1, &c, 1);*/
+		/*if ((j % 8) == 0)*/
+			/*write(1, " ", 1);*/
+		/*j--;*/
+	/*}*/
+/*}*/
 
 void	convert_float_to_binary(float n)
 {
@@ -465,8 +466,8 @@ void	convert_float_to_binary(float n)
 	fl.f = n;
 	i = 0;
 	int j;
-//	printf("\n%f\n", fl.f);
-//	printf("\n%u\n", fl.u);
+	printf("\nfloat: %f\n", fl.f);
+	printf("int: %u\n", fl.u);
 	while (fl.u > 0)
 	{
 		binary_arr[i] = fl.u % 2;
@@ -485,8 +486,195 @@ void	convert_float_to_binary(float n)
 	}
 }
 
+char *double_to_str(double num, int k_prec)
+{
+	char *str = (char*)malloc(sizeof(char) * 200);
+	ft_bzero(str, 200);
+	int i = 0;
+
+	int count = 0;
+	while (num >= 1.0)
+	{
+		printf("\n num : %.50lf", num);
+		num /= 10.;
+		count++;
+	}
+	printf("\n num : %.50lf\n", num);
+	int Integral ;
+	double fractional = num;
+	if (count == 0)
+	{
+		str[i] = '0';
+		i++;
+	}
+	while (count)
+	{
+		fractional *= 10.0;
+		Integral = fractional;
+		/*int rem = Integral % 10;*/
+		str[i] = (Integral + '0');
+		/*Integral /= 10;*/
+		fractional = fractional - Integral;
+		i++;
+		count--;
+	}
+	write(1, "\n", 1);
+	str[i] = '.';
+	i++;
+	while (k_prec--)
+	{
+		fractional *= 10;
+		Integral = fractional;
+		fractional = fractional - Integral;
+		str[i] = Integral + '0';
+		i++;
+	}
+	return str;
+}
+char *long_double_to_str(long double num, int k_prec)
+{
+	char *str = (char*)malloc(sizeof(char) * 100);
+	ft_bzero(str, 100);
+	int i = 0;
+	unsigned long Integral = num;
+	long double fractional = num - Integral;
+	while (Integral)
+	{
+		int rem = Integral % 10;
+		str[i] = (rem +'0');
+		Integral /= 10;
+		i++;
+	}
+	str[i] = '.';
+	i++;
+	while (k_prec--)
+	{
+		fractional *= 10;
+		Integral = fractional;
+		fractional = fractional - Integral;
+		str[i] = Integral + '0';
+		i++;
+	}
+	return str;
+}
+
+void	convert_longdbl_to_binary(long double n)
+{
+	int		i = 0;
+	int j;
+	unsigned int binary_arr[1000];
+	t_ldbl fl;
+
+	fl.f = n;
+	/*printf("\nfloat: %f\n", fl.f);*/
+	/*printf("int: %u\n", fl.u);*/
+	while (fl.b.man > 0)
+	{
+		binary_arr[i] = fl.b.man % 2;
+		fl.b.man = fl.b.man / 2;
+		i++;
+	}
+	j = i - 1;
+	while (j >= 0)
+	{
+//		printf("%d\n", j);
+		unsigned char c = binary_arr[j] + '0';
+		write(1, &c, 1);
+		if ((j % 8) == 0)
+			write(1, " ", 1);
+		j--;
+	}
+}
+
+void	convert_dbl_to_binary(double n)
+{
+	int		i = 0;
+	int j;
+	unsigned int binary_arr[1000];
+	t_dbl fl;
+
+	fl.f = n;
+	/*printf("\nfloat: %f\n", fl.f);*/
+	printf("int: %lu\n", fl.b.sign);
+	printf("int: %lu\n", fl.b.exp);
+
+	while (fl.b.man > 0)
+	{
+		binary_arr[i] = fl.b.man % 2;
+		fl.b.man = fl.b.man / 2;
+		i++;
+	}
+	j = i - 1;
+	while (j >= 0)
+	{
+//		printf("%d\n", j);
+		unsigned char c = binary_arr[j] + '0';
+		write(1, &c, 1);
+		if ((j % 8) == 0)
+			write(1, " ", 1);
+		j--;
+	}
+}
+int is_bit_set(unsigned long n, int k)
+{
+	if (n & (1 << (k - 1)))
+		return (1);
+	else
+		return (0);
+} 
 #include <limits.h>
 #include <math.h>
+
+void	float_to_binary(float n)
+{
+	int		i = 0;
+	int j;
+	unsigned int binary_arr[1000];
+	t_fbl fl;
+
+	fl.f = n;
+	/*printf("\nfloat: %f\n", fl.f);*/
+	printf("\nint: %lu\n", fl.b.sign);
+	printf("\nint: %lu\n", fl.b.exp);
+	printf("\nint: %lu\n", fl.b.man);
+	int power = fl.b.exp - 127;
+	while (fl.b.man > 0)
+	{
+		binary_arr[i] = fl.b.man % 2;
+		fl.b.man = fl.b.man / 2;
+		i++;
+	}
+	printf("bits: %d\n", i);
+	j = i;
+	printf("j: %d\n", j);
+	/*binary_arr[j - 1] = 1;*/
+	float sum = 0.0;
+	while (j >= 0)
+	{
+		/*unsigned char c = binary_arr[j - 1] + '0';*/
+		/*write(1, &c, 1);*/
+		/*write(1, "\n", 1);*/
+		sum += binary_arr[j] * pow(2.0, (-1) * (23 - j));
+		printf("mantissa: %.90f\n", binary_arr[j] * pow(2.0, (-1) * (23 - j)));
+		printf("sum:      %.90f\n", sum);
+		/*printf("sum:      %.90f\n", sum * pow(2, power));*/
+		j--;
+	}
+	sum += 1.0;
+	printf("sum: %.90f\n", sum);
+	printf("our float: %.90f\n", sum * pow(2, power));
+	j = i;
+	while (j >= 0)
+	{
+//		printf("%d\n", j);
+		unsigned char c = binary_arr[j] + '0';
+		/*write(1, &c, 1);*/
+		/*if ((j % 8) == 0)*/
+			/*write(1, " ", 1);*/
+		j--;
+	}
+}
+
 int main()
 {
 	int		integer = 1223;
@@ -500,22 +688,28 @@ int main()
 //	octal_checker();
 //	char_checker();
 //	float_checker();
-	long int    lnb = LONG_MAX;
-	long int    lnb_neg = LONG_MIN;
-	long int    lnb_0 = 0;
-	convert_float_to_binary(2.1);
-	printf("\n%.31f\n", 2.1);
-
-//	convert_double_to_binary(2.1);
-//	printf("\n%.100Lf\n", (long double)(1/3));
-//	ft_printf("\n%#08o|\n", 42);
-//	printf("\n%#08o|\n", 42);
-
-
-//	ft_printf("Faux : |||%ld||| %ld |||-%ld/\n", lnb, lnb_neg, lnb_0);
-//	printf("Vrai : |||%ld||| %ld |||-%ld/\n", lnb, lnb_neg, lnb_0);
-//	ft_printf("Faux : |||%ld||| %ld |||-%ld/\n", lnb, lnb_neg - 1, lnb_0);
-//	printf("Vrai : |||%ld||| %ld |||-%ld/\n", lnb, lnb_neg - 1, lnb_0);
-	/*printf("itoa_bas	decimal_checker();e: %s\n", itoa_base(15, 16));*/
+	long int	lnb = LONG_MAX;
+	long int	lnb_neg = LONG_MIN;
+	long int	lnb_0 = 0;
+	/*unsigned long b = 1111111111111111111111111;*/
+	/*double a = 13211233212312313212312311233121233211111111111111111111111111111111111111111111111111111111111123231231231.; //22*/
+	double a = 2131.6;
+	double t = 2131.6;
+	/*float f = 6.800000190734863;*/
+	float f = 323333333331.01;
+	long double b = 11111111.2231;
+	/*double_to_str(f, 50);*/
+	/*convert_longdbl_to_binary(b);*/
+	printf("\nog: %.40f\n", f);
+	float_to_binary(f);
+	/*printf("\nog	   :   %.40lf\n", a);*/
+	/*printf("converted: %s\n", double_to_str(t, 40));*/
+	/*printf("\nog	   :   %.50Lf\n", b);*/
+	/*printf("converted: %s\n", long_double_to_str(b, 50));*/
+	/*printf("real:		 %.50lf\n", a * 321 - a* 321);*/
+//	printf("converted: %s\n", long_double_to_str(a, 150));
+//	printf("real:	   %.150Lf\n", a);
 	return (0);
 }
+
+

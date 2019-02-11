@@ -17,6 +17,71 @@
 # define ZERO 4
 # define SPACE 5
 
+struct                    s_ldbits
+{
+    unsigned long        man : 64;
+    unsigned long        exp : 15;
+    unsigned long        sign : 1;
+};
+
+typedef union            u_ldbl
+{
+    long double            f;
+    struct s_ldbits        b;
+}                        t_ldbl;
+
+struct                    s_dbits
+{
+    unsigned long        man : 52;
+    unsigned long        exp : 11;
+    unsigned long        sign : 1;
+};
+
+typedef union            u_dbl
+{
+    double            f;
+    struct s_dbits        b;
+}                        t_dbl;
+
+struct                    s_floatbits
+{
+    unsigned long        man : 23;
+    unsigned long        exp : 8;
+    unsigned long        sign : 1;
+};
+
+typedef union            u_fbl
+{
+    float            f;
+    struct s_floatbits        b;
+}                        t_fbl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef union	s_ldouble {
+	long double f;
+	unsigned long long u;
+}				t_ldouble;
+
 typedef union	s_double {
 	double f;
 	unsigned long u;
