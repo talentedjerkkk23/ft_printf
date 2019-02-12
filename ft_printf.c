@@ -20,7 +20,7 @@ int	ft_printf(const char *fmt, ...)
 
 void decimal_checker()
 {
-	printf("\n<|############################|>\n");
+	printf("\n<|######--LEFT   ALIGN--######|>\n");
 
 	ft_printf("my: %d|\n", 0);
 	printf("og: %d|\n", 0);
@@ -36,10 +36,12 @@ void decimal_checker()
 
 	ft_printf("my: %+14d|\n", 0);
 	printf("og: %+14d|\n", 0);
-	ft_printf("my: %+14d|\n", 12);
-	printf("og: %+14d|\n", 12);
+	ft_printf("my: %+1d|\n", 12);
+	printf("og: %+1d|\n", 12);
 	ft_printf("my: %+14d|\n", -7);
 	printf("og: %+14d|\n", -7);
+	ft_printf("my: %14d|\n", -8);
+	printf("og: %14d|\n", -8);
 	ft_printf("my: %+14d|\n", 1560133635);
 	printf("og: %+14d|\n", 1560133635);
 	ft_printf("my: %+14d|\n", -2035065302);
@@ -54,11 +56,32 @@ void decimal_checker()
 	printf("og: %05d|\n", -7);
 	ft_printf("my: %012d|\n", 120);
 	printf("og: %012d|\n", 120);
+	ft_printf("my: %12d|\n", 31);
+	printf("og: %12d|\n", 31);
+	ft_printf("my: %12d|\n", -32);
+	printf("og: %12d|\n", -32);
 	ft_printf("my: %05d|\n", 1560133635);
 	printf("og: %05d|\n", 1560133635);
 	ft_printf("my: %05d|\n", -2035065302);
 	printf("og: %05d|\n", -2035065302);
 
+
+	printf("\n<|########--PRECISION--#######|>\n");
+
+	ft_printf("my: %+.9d|\n", 7);
+	printf("og: %+.9d|\n", 7);
+	ft_printf("my: %+.9d|\n", -7);
+	printf("og: %+.9d|\n", -7);
+	ft_printf("my: %23.15d|\n", 722);
+	printf("og: %23.15d|\n", 722);;
+	ft_printf("my: %15.23d|\n", 222);
+	printf("og: %15.23d|\n", 222);;
+	ft_printf("my: %+.5d|\n", 1);
+	printf("og: %+.5d|\n", 1);
+	ft_printf("my: %+.1d|\n", 5);
+	printf("og: %+.1d|\n", 5);
+	ft_printf("my: %.d|\n", 6);
+	printf("og: %.d|\n", 6);
 
 	printf("\n<|######--RIGHT  ALIGN--######|>\n");
 	// RIGHT ALIGN
@@ -88,20 +111,24 @@ void decimal_checker()
 
 	printf("\n<|########--PRECISION--#######|>\n");
 
+	ft_printf("my: %-23.15d|\n", 222);
+	printf("og: %-23.15d|\n", 222);;
+	ft_printf("my: %-15.23d|\n", 222);
+	printf("og: %-15.23d|\n", 222);;
 	ft_printf("my: %-+.9d|\n", 7);
 	printf("og: %-+.9d|\n", 7);
 	ft_printf("my: %-+.9d|\n", -7);
 	printf("og: %-+.9d|\n", -7);
 	ft_printf("my: %-.15d|\n", 722);
 	printf("og: %-.15d|\n", 722);;
-	ft_printf("my: %+.5d|\n", 7);
-	printf("og: %+.5d|\n", 7);
-	ft_printf("my: %+.1d|\n", 7);
-	printf("og: %+.1d|\n", 7);
-	ft_printf("my: %.d|\n", 7);
-	printf("og: %.d|\n", 7);
-	ft_printf("my: %.-1d|\n", 7);
-	printf("og: %.-1d|\n", 7);
+	ft_printf("my: %-+.5d|\n", 1);
+	printf("og: %-+.5d|\n", 1);
+	ft_printf("my: %-+5.5d|\n", 1);
+	printf("og: %-+5.5d|\n", 1);
+	ft_printf("my: %-+.1d|\n", 5);
+	printf("og: %-+.1d|\n", 5);
+	ft_printf("my: %-.d|\n", 6);
+	printf("og: %-.d|\n", 6);
 
 	printf("\n<|############################|>\n");
 }
@@ -132,6 +159,10 @@ void	unsigned_decimal_checker()
 	printf("og: %+14u|\n", 1560133635);
 	ft_printf("my: %+14u|\n", -2035065302);
 	printf("og: %+14u|\n", -2035065302);
+	ft_printf("my: %23.15u|\n", 722);
+	printf("og: %23.15u|\n", 722);;
+	ft_printf("my: %15.23u|\n", 222);
+	printf("og: %15.23u|\n", 222);;
 
 	// SPACE
 	printf("\n<|############################|>\n");
@@ -161,6 +192,10 @@ void	unsigned_decimal_checker()
 
 	printf("\n<|############################|>\n");
 
+	ft_printf("my: %-23.15u|\n", 722);
+	printf("og: %-23.15u|\n", 722);;
+	ft_printf("my: %-15.23u|\n", 222);
+	printf("og: %-15.23u|\n", 222);;
 	ft_printf("my: %-05u|\n", 0);
 	printf("og: %-05u|\n", 0);
 	ft_printf("my: %-05u|\n", -7);
@@ -182,14 +217,16 @@ void	unsigned_decimal_checker()
 	printf("og: %-+.9u|\n", -7);
 	ft_printf("my: %-.15u|\n", 722);
 	printf("og: %-.15u|\n", 722);;
-	ft_printf("my: %+.5u|\n", 7);
-	printf("og: %+.5u|\n", 7);
-	ft_printf("my: %+.1u|\n", 7);
-	printf("og: %+.1u|\n", 7);
-	ft_printf("my: %.u|\n", 7);
-	printf("og: %.u|\n", 7);
-	ft_printf("my: %.-1u|\n", 7);
-	printf("og: %.-1u|\n", 7);
+	ft_printf("my: %-+.5u|\n", 7);
+	printf("og: %-+.5u|\n", 7);
+	ft_printf("my: %-+.1u|\n", 7);
+	printf("og: %-+.1u|\n", 7);
+	ft_printf("my: %-+5.5u|\n", 321);
+	printf("og: %-+5.5u|\n", 321);
+	ft_printf("my: %-.u|\n", 7);
+	printf("og: %-.u|\n", 7);
+	ft_printf("my: %-+.0u|\n", 0);
+	printf("og: %-+.0u|\n", 0);
 
 	printf("\n<|############################|>\n");
 }
@@ -231,6 +268,8 @@ void	hex_checker()
 	printf("og: %#+13.10lx|\n", 0);
 	ft_printf("my: %#+16.5lx|\n", 42);
 	printf("og: %#+16.5lx|\n", 42);;
+	ft_printf("my: %#+6.15lx|\n", 42);
+	printf("og: %#+6.15lx|\n", 42);;
 	ft_printf("my: %#+5x|\n", -7);
 	printf("og: %#+5x|\n", -7);
 	ft_printf("my: %+5x|\n", 1560133635);
@@ -274,6 +313,8 @@ void	hex_checker()
 	printf("og: %+-5x|\n", 1560133635);
 	ft_printf("my: %+-5x|\n", -2035065302);
 	printf("og: %+-5x|\n", -2035065302);
+	ft_printf("my: %#-+6.15lx|\n", 42);
+	printf("og: %#-+6.15lx|\n", 42);;
 
 	ft_printf("my: %-24llx|\n", 331231232132112);
 	printf("og: %-24llx|\n", 331231232132112);
@@ -289,6 +330,8 @@ void	hex_checker()
 	printf("og: %#-05x|\n", 1560133635);
 	ft_printf("my: %-05x|\n", -2035065302);
 	printf("og: %-05x|\n", -2035065302);
+	ft_printf("my: %-.0x|\n", 0);
+	printf("og: %-.0x|\n", 0);
 
 	printf("\n<|############################|>\n");
 }
@@ -330,6 +373,8 @@ void	octal_checker()
 	printf("og: %#+13.10lo|\n", 0);
 	ft_printf("my: %#19.5lo|\n", 42);
 	printf("og: %#19.5lo|\n", 42);
+	ft_printf("my: %#9.15lo|\n", 12);
+	printf("og: %#9.15lo|\n", 12);
 	ft_printf("my: %#+16.5lo|\n", 342);
 	printf("og: %#+16.5lo|\n", 342);
 	ft_printf("my: %#+5o|\n", -7);
@@ -394,7 +439,9 @@ void	octal_checker()
 	ft_printf("my: %#-05o|\n", 1560133635);
 	printf("og: %#-05o|\n", 1560133635);
 	ft_printf("my: %-05o|\n", -2035065302);
-	printf("og: %-05o|\n", -2035065302);
+	printf("og: %-.0o|\n", -2035065302);
+	ft_printf("my: %-.0o|\n", 0);
+	printf("og: %-.0o|\n", 0);
 
 	printf("\n<|############################|>\n");
 }
@@ -429,6 +476,100 @@ void	float_checker()
 	printf("og: %.f|\n", 0.1223);
 	ft_printf("my: %-3.f|\n", 42.123312);
 	printf("og: %-3.f|\n", 42.123312);
+}
+
+void str_checker()
+{
+	char *s = "123456789";
+	char *null_str;
+
+	printf("\n<|###########--LEFT ALIGN--###########|>\n");
+	ft_printf("my: %s|\n", s);
+	printf("og: %s|\n", s);
+	ft_printf("my: %5s|\n", s);
+	printf("og: %5s|\n", s);
+	ft_printf("my: %15s|\n", s);
+	printf("og: %15s|\n", s);
+	ft_printf("my: %.5s|\n", s);
+	printf("og: %.5s|\n", s);
+	ft_printf("my: %.32s|\n", s);
+	printf("og: %.32s|\n", s);
+	ft_printf("my: %6.12s|\n", s);
+	printf("og: %6.12s|\n", s);
+	ft_printf("my: %12.6s|\n", s);
+	printf("og: %12.6s|\n", s);
+	ft_printf("my: %0s|\n", s);
+	printf("og: %0s|\n", s);
+	printf("\n<|###########--RIGHT ALIGN--###########|>\n");
+	ft_printf("my: %-s|\n", s);
+	printf("og: %-s|\n", s);
+	ft_printf("my: %-5s|\n", s);
+	printf("og: %-5s|\n", s);
+	ft_printf("my: %-15s|\n", s);
+	printf("og: %-15s|\n", s);
+	ft_printf("my: %-.5s|\n", s);
+	printf("og: %-.5s|\n", s);
+	ft_printf("my: %-.32s|\n", s);
+	printf("og: %-.32s|\n", s);
+	ft_printf("my: %-6.12s|\n", s);
+	printf("og: %-6.12s|\n", s);
+	ft_printf("my: %-12.6s|\n", s);
+	printf("og: %-12.6s|\n", s);
+	ft_printf("my: %-.0s|\n", s);
+	printf("og: %-.0s|\n", s);
+
+	printf("\n<|###########--NULL STR--###########|>\n");
+	printf("og: %-s|\n", NULL);
+	ft_printf("my: %-s|\n", NULL);
+
+}
+
+void ptr_checker()
+{
+	char *p = "123456789";
+	char *null_str;
+	long double *a;
+
+	printf("\n<|###########--LEFT ALIGN--###########|>\n");
+	ft_printf("my: %p|\n", p);
+	printf("og: %p|\n", p);
+	ft_printf("my: %5p|\n", p);
+	printf("og: %5p|\n", p);
+	ft_printf("my: %15p|\n", p);
+	printf("og: %15p|\n", p);
+	ft_printf("my: %.5p|\n", p);
+	printf("og: %.5p|\n", p);
+	ft_printf("my: %.32p|\n", p);
+	printf("og: %.32p|\n", p);
+	ft_printf("my: %6.12p|\n", p);
+	printf("og: %6.12p|\n", p);
+	ft_printf("my: %12.6p|\n", p);
+	printf("og: %12.6p|\n", p);
+	ft_printf("my: %0p|\n", p);
+	printf("og: %0p|\n", p);
+	printf("\n<|###########--RIGHT ALIGN--###########|>\n");
+	ft_printf("my: %-p|\n", p);
+	printf("og: %-p|\n", p);
+	ft_printf("my: %-5p|\n", p);
+	printf("og: %-5p|\n", p);
+	ft_printf("my: %-15p|\n", p);
+	printf("og: %-15p|\n", p);
+	ft_printf("my: %-.5p|\n", p);
+	printf("og: %-.5p|\n", p);
+	ft_printf("my: %-.32p|\n", p);
+	printf("og: %-.32p|\n", p);
+	ft_printf("my: %-6.12p|\n", p);
+	printf("og: %-6.12p|\n", p);
+	ft_printf("my: %-12.6p|\n", p);
+	printf("og: %-12.6p|\n", p);
+	ft_printf("my: %-.0p|\n", p);
+	printf("og: %-.0p|\n", p);
+	ft_printf("my: %-.0p|\n", 0);
+	printf("og: %-.0p|\n", 0);
+
+	printf("\n<|###########--NULL STR--###########|>\n");
+	printf("og: %-p|\n", NULL);
+	ft_printf("my: %-p|\n", NULL);
 }
 
 /*void	convert_double_to_binary(double n)*/
@@ -625,19 +766,19 @@ int is_bit_set(unsigned long n, int k)
 #include <limits.h>
 #include <math.h>
 
-void	float_to_binary(float n)
+void	float_to_binary(long double n)
 {
 	int		i = 0;
 	int j;
 	unsigned int binary_arr[1000];
-	t_fbl fl;
+	t_ldbl fl;
 
 	fl.f = n;
 	/*printf("\nfloat: %f\n", fl.f);*/
 	printf("\nint: %lu\n", fl.b.sign);
 	printf("\nint: %lu\n", fl.b.exp);
 	printf("\nint: %lu\n", fl.b.man);
-	int power = fl.b.exp - 127;
+	int power = fl.b.exp - 16382;
 	while (fl.b.man > 0)
 	{
 		binary_arr[i] = fl.b.man % 2;
@@ -648,7 +789,7 @@ void	float_to_binary(float n)
 	j = i;
 	printf("j: %d\n", j);
 	/*binary_arr[j - 1] = 1;*/
-	float sum = 0.0;
+	long double sum = 0.0;
 	while (j >= 0)
 	{
 		/*unsigned char c = binary_arr[j - 1] + '0';*/
@@ -668,9 +809,9 @@ void	float_to_binary(float n)
 	{
 //		printf("%d\n", j);
 		unsigned char c = binary_arr[j] + '0';
-		/*write(1, &c, 1);*/
-		/*if ((j % 8) == 0)*/
-			/*write(1, " ", 1);*/
+		write(1, &c, 1);
+		if ((j % 8) == 0)
+			write(1, " ", 1);
 		j--;
 	}
 }
@@ -683,11 +824,14 @@ int main()
 	char	*c_ptr = &c;
 	char	*str = "string!";
 	int n = 221322;
-//	decimal_checker();
-//	unsigned_decimal_checker();
-//	octal_checker();
-//	char_checker();
-//	float_checker();
+	decimal_checker();
+	unsigned_decimal_checker();
+	hex_checker();
+	octal_checker();
+	char_checker();
+	float_checker();
+	str_checker();
+	ptr_checker();
 	long int	lnb = LONG_MAX;
 	long int	lnb_neg = LONG_MIN;
 	long int	lnb_0 = 0;
@@ -700,8 +844,7 @@ int main()
 	long double b = 11111111.2231;
 	/*double_to_str(f, 50);*/
 	/*convert_longdbl_to_binary(b);*/
-	printf("\nog: %.40f\n", f);
-	float_to_binary(f);
+	/*float_to_binary(b);*/
 	/*printf("\nog	   :   %.40lf\n", a);*/
 	/*printf("converted: %s\n", double_to_str(t, 40));*/
 	/*printf("\nog	   :   %.50Lf\n", b);*/

@@ -1,5 +1,6 @@
 SRC = ft_printf.c parser.c ft_format_create.c ft_print_type.c print_utils.c \
-	  print_char.c print_unsigned_decimal.c print_hex.c print_decimal.c print_octal.c
+	  print_char.c print_unsigned_decimal.c print_hex.c print_decimal.c print_octal.c \
+	  print_string.c print_ptr.c
 
 HEAD = ft_printf.h
 

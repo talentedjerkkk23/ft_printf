@@ -30,9 +30,14 @@ static void	write_left_align(t_fmt *f, char *num, unsigned long n, int num_len)
 	int		i;
 
 	i = (n < 0) ? 1 : 0;
-	if ((f->space || f->plus) && f->precision == -1)
+	if ((f->space || f->plus) && f->have_prec)
+	{
 		f->total_len += write(1, " ", 1);
-	while (!f->zero && f->precision == -1 && f->field_width-- > (num_len + ((n < 0) ? 0 : 1)))
+		f->field_width--;
+	}
+	while (f->have_prec && f->field_width-- > f->precision)
+		f->total_len += write(1, " ", 1);
+	while (!f->zero && !f->have_prec && f->field_width-- > (num_len))
 		f->total_len += write(1, " ", 1);
 	while (f->zero && f->field_width-- > (num_len))
 		f->total_len += write(1, "0", 1);
@@ -49,16 +54,15 @@ static void	write_right_align(t_fmt *f, char *num, unsigned long n, int num_len)
 	if (f->precision > num_len)
 	{
 		while (f->precision-- > (num_len))
+		{
 			f->total_len += write(1, "0", 1);
+			f->field_width--;
+		}
 	}
 	while (num[i])
 		f->total_len += write(1, &num[i++], 1);
-	while (f->precision >= 0 && f->field_width >= num_len && f->field_width-- > f->precision)
-		f->total_len += write(1, " ", 1);
-	while (f->plus && f->field_width-- > (num_len) && f->precision == -1)
-		f->total_len += write(1, " ", 1);
-	while (!f->plus && f->field_width-- > (num_len ) && f->precision == -1)
-		f->total_len += write(1, " ", 1);
+	while (f->field_width-- > num_len)
+		f->total_len += write(1, " ", 1); 
 }
 
 void	print_unsigned_decimal(t_fmt *f, va_list ap)
@@ -70,6 +74,9 @@ void	print_unsigned_decimal(t_fmt *f, va_list ap)
 	n = calc_len_mod(f, ap);
 	num = ft_ltoa(n);
 	num_len = l_strlen(num);
+	if (n == 0 && f->have_prec && f->precision == 0 && f->field_width == 0)
+		return ;
+	f->pmf = (f->precision > f->field_width) ? 1 : 0;
 	if (f->minus)
 		f->zero = 0;
 	if (f->plus)

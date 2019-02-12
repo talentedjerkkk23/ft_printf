@@ -58,25 +58,6 @@ typedef union            u_fbl
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 typedef union	s_ldouble {
 	long double f;
 	unsigned long long u;
@@ -97,23 +78,26 @@ typedef union	s_float {
 
 typedef struct	s_fmt
 {
-	int		fd;
-	int		total_len;
-	int		i;
-	int		curr_len;
-	short	hash;
-	short	plus;
-	short	minus;
-	short	zero;
-	short 	space;
-	short	adjust;
-	int		field_width;
-	int 	len_modif;
-	int		precision;
-	short 	have_prec;
-	short 	mode;
+	int			fd;
+	int			total_len;
+	int			i;
+	int			curr_len;
+	short		hash;
+	short		plus;
+	short		minus;
+	short		zero;
+	short		space;
+	short		adjust;
+	int			field_width;
+	int			len_modif;
+	int			precision;
+	short		pmf;
+	short		have_prec;
+	short		mode;
 }				t_fmt;
 
+
+void			print_str(t_fmt *f, va_list ap);
 void			print_floating_point(t_fmt *f, va_list ap);
 void			print_char(t_fmt *f, va_list ap);
 void			print_octal(t_fmt *f, va_list ap);
@@ -124,4 +108,5 @@ long			calc_len(long n, long count);
 int     		ft_parse_args(const char *fmt, t_fmt *f, va_list ap);
 void			reset_format(t_fmt *f);
 void			print(const char *fmt, t_fmt *f, va_list ap);
+
 #endif

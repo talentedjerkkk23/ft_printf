@@ -17,8 +17,8 @@ void	print(const char *fmt, t_fmt *f, va_list ap)
 		print_char(f, ap);
 	else if (fmt[f->i] == 'f')
 		print_decimal(f, ap);
-	else if (fmt[f->i] == 'd' || fmt[f->i] == 'i')
-		print_decimal(f, ap);
-	else if (fmt[f->i] == 'd' || fmt[f->i] == 'i')
-		print_decimal(f, ap);
+	else if (fmt[f->i] == 's')
+		print_str(f, ap);
+	else if (fmt[f->i] == 'p')
+		print_ptr(f, ap);
 }
