@@ -94,10 +94,14 @@ typedef struct	s_fmt
 	short		pmf;
 	short		have_prec;
 	short		mode;
+	short		fl_sign;
 }				t_fmt;
 
-
+void			print_rounded(char **str, int prec);
+char			*long_double_to_str(long double num, int k_prec);
+char			*double_to_str(double num, int k_prec);
 void			print_str(t_fmt *f, va_list ap);
+void			print_ptr(t_fmt *f, va_list ap);
 void			print_floating_point(t_fmt *f, va_list ap);
 void			print_char(t_fmt *f, va_list ap);
 void			print_octal(t_fmt *f, va_list ap);

@@ -1,8 +1,5 @@
 #include "ft_printf.h"
 
-
-
-
 void	print(const char *fmt, t_fmt *f, va_list ap)
 {
 	if (fmt[f->i] == 'd' || fmt[f->i] == 'i')
@@ -16,7 +13,7 @@ void	print(const char *fmt, t_fmt *f, va_list ap)
 	else if (fmt[f->i] == 'c')
 		print_char(f, ap);
 	else if (fmt[f->i] == 'f')
-		print_decimal(f, ap);
+		print_floating_point(f, ap);
 	else if (fmt[f->i] == 's')
 		print_str(f, ap);
 	else if (fmt[f->i] == 'p')

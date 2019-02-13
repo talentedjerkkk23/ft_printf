@@ -13,4 +13,5 @@ void	reset_format(t_fmt *f)
 	f->have_prec = 0;
 	f->field_width = 0;
 	f->mode = 0;
+	f->fl_sign = 0;
 }
