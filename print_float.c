@@ -25,24 +25,32 @@ static long double	calc_len_mod(t_fmt *f, va_list ap)
 	return(n);
 }
 
-static void	write_left_align(t_fmt *f, char *num, unsigned long n, int num_len)
+static void	write_left_align(t_fmt *f, char *num, long double n, int num_len)
 {
 	int		i;
 
 	/*i = (n < 0) ? 1 : 0;*/
+	n--;
+	num_len--;
 	print_rounded(&num, f->precision);
 	i = 0;
 	while (num[i] && num[i] != '.')
 		f->total_len += write(1, &num[i++], 1);
-	while (num[i] && f->precision--)
+	f->total_len += write(1, &num[i++], 1);
+	while (num[i] && f->precision)
+	{
 		f->total_len += write(1, &num[i++], 1);
+		f->precision--;
+	}
 }
 
-static void	write_right_align(t_fmt *f, char *num, unsigned long n, int num_len)
+static void	write_right_align(t_fmt *f, char *num, long double  n, int num_len)
 {
 	int i;
 	/*i = (n < 0) ? 1 : 0;*/
 	i = 0;
+	n--;
+	num_len--;
 	print_rounded(&num, f->precision);
 	while (num[i] && num[i] != '.')
 		f->total_len += write(1, &num[i++], 1);
@@ -62,7 +70,7 @@ void	print_floating_point(t_fmt *f, va_list ap)
 		f->fl_sign = 1;
 	if (!f->have_prec)
 		f->precision = 6;
-	num = double_to_str(n, f->precision + 1);
+	num = double_to_str(n, f->precision + 19);
 	/*printf("\nnum: %s\n", num);*/
 	num_len = l_strlen(num);
 	if (f->minus)

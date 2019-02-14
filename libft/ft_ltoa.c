@@ -28,8 +28,8 @@ char		*ft_ltoa(long long n)
 	count = calc_len(n);
 	if (n == 9223372036854775807 || n == 0)
 		return (n == 0 ? ft_strdup("0") : ft_strdup("9223372036854775807"));
-	if (n == -9223372036854775807)
-		return (ft_strdup("-9223372036854775807"));
+	if (n < -9223372036854775807)
+		return (ft_strdup("-9223372036854775808"));
 	if (!(number = (char*)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
 	number[count] = '\0';

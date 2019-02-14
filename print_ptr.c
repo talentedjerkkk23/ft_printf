@@ -10,7 +10,7 @@ static int 	l_strlen(char *str)
 		i++;
 	return (i);
 }
-static unsigned long	calc_len_mod(t_fmt *f, va_list ap)
+static unsigned long	calc_len_mod(va_list ap)
 {
 	unsigned long n;
 
@@ -18,7 +18,7 @@ static unsigned long	calc_len_mod(t_fmt *f, va_list ap)
 	return(n);
 }
 
-static void	write_left_align(t_fmt *f, char *num, unsigned long n, int num_len)
+static void	write_left_align(t_fmt *f, char *num, int num_len)
 {
 	int		i;
 
@@ -37,7 +37,7 @@ static void	write_left_align(t_fmt *f, char *num, unsigned long n, int num_len)
 		f->total_len += write(1, &num[i++], 1);
 }
 
-static void	write_right_align(t_fmt *f, char *num, unsigned long n, int num_len)
+static void	write_right_align(t_fmt *f, char *num, int num_len)
 {
 	int		i;
 
@@ -69,7 +69,7 @@ void	print_ptr(t_fmt *f, va_list ap)
 	char *num;
 	int num_len;
 
-	n = calc_len_mod(f, ap);
+	n = calc_len_mod(ap);
 	f->hash = 1;
 	f->mode = 1;
 	if (n == 0 && f->have_prec && f->precision == 0 && f->field_width == 0)
@@ -89,9 +89,9 @@ void	print_ptr(t_fmt *f, va_list ap)
 			f->field_width -= 2;;
 	}
 	if (f->minus)
-		write_right_align(f, num, n, num_len);
+		write_right_align(f, num, num_len);
 	else
-		write_left_align(f, num, n, num_len);
+		write_left_align(f, num, num_len);
 	free(num);
 }
 

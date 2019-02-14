@@ -51,7 +51,7 @@ void	print_str(t_fmt *f, va_list ap)
 	s = va_arg(ap, char *);
 	if (s == NULL)
 	{
-		write(1, "(null)", 6);
+		f->total_len += write(1, "(null)", 6);
 		return ;
 	}
 	num = ft_strdup(s);

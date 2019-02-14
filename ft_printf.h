@@ -97,6 +97,7 @@ typedef struct	s_fmt
 	short		fl_sign;
 }				t_fmt;
 
+int				ft_printf(const char *fmt, ...);
 void			print_rounded(char **str, int prec);
 char			*long_double_to_str(long double num, int k_prec);
 char			*double_to_str(double num, int k_prec);
