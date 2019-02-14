@@ -814,10 +814,12 @@ int main()
 	/*int fa = printf("%s\n", 0);*/
 	/*printf("%d\n", fa);*/
 	/*printf("%d\n", fm);*/
-	ft_printf("%15.4s|\n", "42");
-	printf("%15.4s|\n", "42");
-	ft_printf("%#.o\n %#.0o\n", 0, 0);
-	printf("%#.o\n %#.0o\n", 0, 0);
+	/*ft_printf("%15.4s|\n", "42");*/
+	/*printf("%15.4s|\n", "42");*/
+	/*ft_printf("%#.o\n %#.0o\n", 0, 0);*/
+	/*printf("%#.o\n %#.0o\n", 0, 0);*/
+	ft_printf("%c\n", 42);
+	printf("%c\n", 42);
 	long int	lnb = LONG_MAX;
 	long int	lnb_neg = LONG_MIN;
 	long int	lnb_0 = 0;

@@ -1,6 +1,12 @@
 #include "ft_printf.h"
 
-void	print(const char *fmt, t_fmt *f, va_list ap)
+
+static void		print_spec_symb(t_fmt *f)
+{
+	f->total_len += write(1, "%", 1);
+}
+
+void			print(const char *fmt, t_fmt *f, va_list ap)
 {
 	if (fmt[f->i] == 'd' || fmt[f->i] == 'i')
 		print_decimal(f, ap);
@@ -18,4 +24,6 @@ void	print(const char *fmt, t_fmt *f, va_list ap)
 		print_str(f, ap);
 	else if (fmt[f->i] == 'p')
 		print_ptr(f, ap);
+	else if (fmt[f->i] == '%')
+		print_spec_symb(f);
 }

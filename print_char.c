@@ -2,11 +2,9 @@
 
 static void	write_left_align(t_fmt *f, int n)
 {
-
 	while (f->field_width-- > 1)
 		f->total_len += write(1, " ", 1);
 	write(1, &(n), 1);
-
 }
 
 static void	write_right_align(t_fmt *f, int n)
@@ -21,12 +19,8 @@ void	print_char(t_fmt *f, va_list ap)
 	int n;
 
 	n = (unsigned char)va_arg(ap, int);
-//	num = ft_itoa_base(n, 8, 1);
-//	num_len = l_strlen(num);
 	if (f->minus)
 		write_right_align(f, n);
 	else
 		write_left_align(f, n);
 }
-
-

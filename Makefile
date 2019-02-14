@@ -4,29 +4,30 @@ SRC = ft_printf.c parser.c ft_format_create.c ft_print_type.c print_utils.c \
 
 HEAD = ft_printf.h libft/libft.h
 
-NAME = ft_printf
+TEST_NAME = ft_printf
 
-LIB_NAME = libftprintf.a
+NAME = libftprintf.a
 
-CC = clang
+RUN_CC = clang
+CC = gcc 
 
-FLAGS = -Wall -Wextra -Werror
+#FLAGS = -Wall -Wextra -Werror
 
 LIB_SRC = libft
 
 OBJECTS = $(SRC:.c=.o)
 
 .PHONY: all clean fclean re
-all: $(LIB_NAME)
+
+all: $(NAME)
 
 %.o: %.c
 	@$(CC) $(FLAGS) -c -o $@ $<
 
-$(LIB_NAME): $(OBJECTS)
+$(NAME): $(OBJECTS)
 	#@make -C $(LIB_SRC)
 	$(CC) -O3 $(FLAGS) -c $(SRC) -I$(HEAD)
-	ar rc $(LIB_NAME) $(OBJECTS) 
-	
+	ar rc $(NAME) $(OBJECTS) 
 
 #clean: $(CLEAN_SUB_DIR)
 
@@ -34,10 +35,10 @@ clean:
 	@$(MAKE) -C $(LIB_SRC) clean
 
 run:
-	$(CC) -O3 $(SRC) main.c libftprintf.a -o $(NAME)
+	$(RUN_CC) -O3 $(SRC) main.c libftprintf.a -o $(TEST_NAME)
 
 debug:
-	$(CC) -g -O3 $(SRC) -L $(LIB_SRC) -lft -o $(NAME)
+	$(RUN_CC) -g -O3 $(SRC) main.c libftprintf.a -o $(TEST_NAME)
 
 fclean: clean
 	@$(MAKE) -C $(LIB_SRC) fclean
