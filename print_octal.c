@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   print_octal.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 19:52:49 by palan             #+#    #+#             */
-/*   Updated: 2019/02/15 19:53:44 by palan            ###   ########.fr       */
+/*   Updated: 2019/02/16 00:07:46 by talentedjer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static unsigned long	calc_len_mod(t_fmt *f, va_list ap)
+static uintmax_t	calc_len_mod(t_fmt *f, va_list ap)
 {
-	unsigned long n;
+	uintmax_t n;
 	if (f->len_modif == H)
-		n = ((unsigned short)va_arg(ap, unsigned long));
+		n = ((unsigned short)va_arg(ap, uintmax_t));
 	else if (f->len_modif == HH)
-		n = ((unsigned char)va_arg(ap, unsigned long));
+		n = ((unsigned char)va_arg(ap, uintmax_t));
 	else if (f->len_modif == L)
-		n = (va_arg(ap, unsigned long));
+		n = (va_arg(ap, uintmax_t));
 	else if (f->len_modif == LL)
-		n = ((unsigned long long)va_arg(ap, unsigned long));
+		n = ((unsigned long long)va_arg(ap, uintmax_t));
 	else
-		n = (unsigned int)(va_arg(ap, unsigned long));
+		n = (unsigned int)(va_arg(ap, uintmax_t));
 	return (n);
 }
 
-static void	write_left_align(t_fmt *f, char *num, unsigned long n, int num_len)
+static void	write_left_align(t_fmt *f, char *num, uintmax_t n, int num_len)
 {
 	int		i;
 
@@ -83,7 +83,7 @@ static void	write_right_align(t_fmt *f, char *num, int num_len)
 
 void	print_octal(t_fmt *f, va_list ap)
 {
-	unsigned long n;
+	uintmax_t n;
 	char *num;
 	int num_len;
 

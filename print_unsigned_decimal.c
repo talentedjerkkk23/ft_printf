@@ -3,29 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   print_unsigned_decimal.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 14:56:49 by palan             #+#    #+#             */
-/*   Updated: 2019/02/15 19:13:28 by palan            ###   ########.fr       */
+/*   Updated: 2019/02/16 00:23:56 by talentedjer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static unsigned long	calc_len_mod(t_fmt *f, va_list ap)
+
+static uintmax_t	calc_len_mod(t_fmt *f, va_list ap)
 {
-	unsigned long n;
+	uintmax_t n;
 
 	if (f->len_modif == H)
-		n = ((unsigned short)va_arg(ap, unsigned long));
+		n = ((unsigned short)va_arg(ap, uintmax_t));
 	else if (f->len_modif == HH)
-		n = ((unsigned char)va_arg(ap, unsigned long));
+		n = ((unsigned char)va_arg(ap, uintmax_t));
 	else if (f->len_modif == L)
-		n = (va_arg(ap, unsigned long));
+		n = (unsigned long)(va_arg(ap, uintmax_t));
 	else if (f->len_modif == LL)
-		n = ((unsigned long long)va_arg(ap, unsigned long));
+		n = ((unsigned long long)va_arg(ap, uintmax_t));
+	else if (f->len_modif == J)
+		n = va_arg(ap, uintmax_t);
 	else
-		n = (unsigned)(va_arg(ap, unsigned long));
+		n = (unsigned)(va_arg(ap, uintmax_t));
 	return (n);
 }
 
@@ -72,7 +75,7 @@ static void				write_right_align(t_fmt *f, char *num, int num_len)
 
 void					print_unsigned_decimal(t_fmt *f, va_list ap)
 {
-	unsigned long	n;
+	uintmax_t	n;
 	char			*num;
 	int				num_len;
 

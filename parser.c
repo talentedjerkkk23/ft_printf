@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 17:31:42 by palan             #+#    #+#             */
-/*   Updated: 2019/02/15 18:55:21 by palan            ###   ########.fr       */
+/*   Updated: 2019/02/16 00:21:29 by talentedjer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	set_len_modif(const char *fmt, t_fmt *f)
 {
-	if (ft_strchr("hlL", fmt[f->i]))
+	if (ft_strchr("hlLjz", fmt[f->i]))
 	{
 		if (fmt[f->i] == 'h')
 		{
@@ -36,6 +36,7 @@ void	set_len_modif(const char *fmt, t_fmt *f)
 		}
 		else if (fmt[f->i] == 'L')
 			f->len_modif = LL;
+		set_jz_modif(fmt, f);
 		(f->i)++;
 	}
 }
@@ -74,7 +75,7 @@ void	set_flags(const char *fmt, t_fmt *f)
 
 void	ft_set_output_format(const char *fmt, t_fmt *f)
 {
-	while (ft_strchr(" -+#.0123456789hlL", fmt[f->i]))
+	while (ft_strchr(" -+#.0123456789hlLjz", fmt[f->i]))
 	{
 		set_flags(fmt, f);
 		set_width(fmt, f);
@@ -91,7 +92,7 @@ int		ft_parse_args(const char *fmt, t_fmt *f, va_list ap)
 		if (fmt[f->i] == '%')
 		{
 			(f->i)++;
-			if (ft_strchr(" -+#.0123456789hlL", fmt[f->i]))
+			if (ft_strchr(" -+#.0123456789hlLjz", fmt[f->i]))
 				ft_set_output_format(fmt, f);
 			if (ft_strchr("csSpdioOuUxXf%", fmt[f->i]))
 			{

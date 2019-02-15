@@ -3,31 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 18:52:40 by palan             #+#    #+#             */
-/*   Updated: 2019/02/15 19:01:37 by palan            ###   ########.fr       */
+/*   Updated: 2019/02/16 00:17:32 by talentedjer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
-#define FT_PRINTF_H
+# define FT_PRINTF_H
 
-#include <stdlib.h>
+# include <stdlib.h>
+# include <stdarg.h>
+# include <unistd.h>
+# include "libft/libft.h"
+# include <inttypes.h>
 
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdio.h>
-#include "libft/libft.h"
 # define H 1
 # define HH 2
 # define L 3
 # define LL 4
+# define J 5
+# define Z 6
 # define HASH 1
 # define PLUS 2
 # define MINUS 3
 # define ZERO 4
 # define SPACE 5
+
+//remove
+#include <stdio.h>
 
 struct                    s_ldbits
 {
@@ -109,6 +114,7 @@ typedef struct	s_fmt
 	int			is_pl;
 }				t_fmt;
 
+void			set_jz_modif(const char *fmt, t_fmt *f);
 int				l_strlen(char *str);
 void			set_width(const char *fmt, t_fmt *f);
 int				ft_printf(const char *fmt, ...);
