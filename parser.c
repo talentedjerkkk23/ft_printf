@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/15 17:31:42 by palan             #+#    #+#             */
+/*   Updated: 2019/02/15 18:55:21 by palan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	set_len_modif(const char *fmt, t_fmt *f)
@@ -26,10 +38,9 @@ void	set_len_modif(const char *fmt, t_fmt *f)
 			f->len_modif = LL;
 		(f->i)++;
 	}
-
 }
 
-void 	set_precision(const char *fmt, t_fmt *f)
+void	set_precision(const char *fmt, t_fmt *f)
 {
 	if (fmt[f->i] == '.')
 	{
@@ -43,31 +54,21 @@ void 	set_precision(const char *fmt, t_fmt *f)
 	}
 }
 
-void 	set_width(const char *fmt, t_fmt *f)
-{
-	if (ft_isdigit(fmt[f->i]))
-	{
-		f->field_width = ft_atoi(&fmt[f->i]);
-	}
-	while (ft_isdigit(fmt[f->i]))
-		(f->i)++;
-}
-
-void 	set_flags(const char *fmt, t_fmt *f)
+void	set_flags(const char *fmt, t_fmt *f)
 {
 	while (ft_strchr(" #+-0", fmt[f->i]))
 	{
-			if (fmt[f->i] == '#')
-				f->hash = 1;
-			else if (fmt[f->i] == ' ')
-				f->space = 1;
-			else if (fmt[f->i] == '+')
-				f->plus = 1;
-			else if (fmt[f->i] == '-')
-				f->minus = 1;
-			else if (fmt[f->i] == '0')
-				f->zero = 1;
-			(f->i)++;
+		if (fmt[f->i] == '#')
+			f->hash = 1;
+		else if (fmt[f->i] == ' ')
+			f->space = 1;
+		else if (fmt[f->i] == '+')
+			f->plus = 1;
+		else if (fmt[f->i] == '-')
+			f->minus = 1;
+		else if (fmt[f->i] == '0')
+			f->zero = 1;
+		(f->i)++;
 	}
 }
 
@@ -81,11 +82,7 @@ void	ft_set_output_format(const char *fmt, t_fmt *f)
 		set_len_modif(fmt, f);
 	}
 }
-/*
- *
-%[flag][min width][precision][length modifier][conversion specifier]
 
-*/
 int		ft_parse_args(const char *fmt, t_fmt *f, va_list ap)
 {
 	f->i = 0;
@@ -108,5 +105,5 @@ int		ft_parse_args(const char *fmt, t_fmt *f, va_list ap)
 		}
 		(f->i)++;
 	}
-    return (f->total_len);
+	return (f->total_len);
 }

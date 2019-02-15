@@ -1,20 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_char.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/15 16:17:53 by palan             #+#    #+#             */
+/*   Updated: 2019/02/15 16:18:44 by palan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static void	write_left_align(t_fmt *f, int n)
 {
 	while (f->field_width-- > 1)
 		f->total_len += write(1, " ", 1);
-	write(1, &(n), 1);
+	f->total_len += write(1, &(n), 1);
 }
 
 static void	write_right_align(t_fmt *f, int n)
 {
-	write(1, &(n), 1);
+	f->total_len += write(1, &(n), 1);
 	while (f->field_width-- > 1)
 		f->total_len += write(1, " ", 1);
 }
 
-void	print_char(t_fmt *f, va_list ap)
+void		print_char(t_fmt *f, va_list ap)
 {
 	int n;
 

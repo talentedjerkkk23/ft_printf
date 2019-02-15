@@ -59,7 +59,7 @@ void	move_str_right(char **str)
 	int		j;
 
 	tmp = ft_strdup(*str);
-	
+
 	i = 1;
 	j = 0;
 	(*str)[0] = ' ';
@@ -109,8 +109,6 @@ void	print_rounded(char **str, int prec)
 	while (prec--)
 		i++;
 	round_nine(str, i);
-
-	/*printf("\nstr: %s|i: %d\n", *str, i);*/
 }
 
 void	convert_fpart(char **str, int i, double fpart, int prec)
@@ -148,7 +146,7 @@ char *double_to_str(double num, int prec)
 	while (ipart)
 	{
 		int rem = ipart % 10;
-		str[i] = (rem +'0');
+		str[i] = (rem + '0');
 		/*write(1, &str[i], 1);*/
 		ipart /= 10;
 		i++;

@@ -1,7 +1,7 @@
 
 
 #include "ft_printf.h"
-
+#include <limits.h>
 void decimal_checker()
 {
 	printf("\n<|######--LEFT   ALIGN--######|>\n");
@@ -740,7 +740,7 @@ int is_bit_set(unsigned long n, int k)
 		return (1);
 	else
 		return (0);
-} 
+}
 #include <limits.h>
 #include <math.h>
 
@@ -794,6 +794,91 @@ void	float_to_binary(float n)
 	}
 }
 
+void	extra_check()
+{
+	ft_printf("%c|\n", 42);
+	printf("%c|\n", 42);
+	ft_printf("%5.2x|\n", 5427);
+	printf("%5.2x|\n", 5427);
+	int n  = ft_printf("o: %#.o, %#.0o|\n", 0, 0);
+	int	m  =printf("o: %#.o, %#.0o|\n", 0, 0);
+	printf("n: %d\n", n);
+	printf("m: %d\n", m);
+	n = ft_printf("o5: %#5.o, %#5.0o|\n", 0, 0);
+	m = printf("o5: %#5.o, %#5.0o|\n", 0, 0);
+	n = ft_printf("o5: %5.o, %5.0o|\n", 0, 0);
+	m = printf("o5: %5.o, %5.0o|\n", 0, 0);
+	printf("n: %d\n", n);
+	printf("m: %d\n", m);
+	ft_printf("x with .0: %#5.x, %#5.0x|\n", 0, 0);
+	printf("x with .0: %#5.x, %#5.0x|\n", 0, 0);
+	ft_printf("%#6o\n", 2500);
+	printf("%#6o\n", 2500);
+	ft_printf("%6o\n", 2500);
+	printf("%6o\n", 2500);
+	ft_printf("%-5.10o\n", 2500);
+	printf("%-5.10o\n", 2500);
+	ft_printf("%4.s|\n", "42");
+	printf("%4.s|\n", "42");
+	ft_printf("%4.0s|\n", "42");
+	printf("%4.0s!\n", "42");
+	printf("\n");
+	ft_printf("%5.2s|\n", "");
+	printf("%5.2s|\n", "");
+	ft_printf("%s|\n", "");
+	printf("%s|\n", "");
+	ft_printf("%5.19s|\n", "");
+	printf("%5.19s|\n", "");
+	ft_printf("%15.4s|\n", "42");
+	printf("%15.4s|\n", "42");
+	ft_printf("%5.2s is a string|\n", "this");
+	printf("%5.2s is a string|\n", "this");
+	ft_printf("%-5.2s is a string|\n", "");
+	printf("%-5.2s is a string|\n", "");
+	ft_printf("%0+5d\n", 42);
+	printf("%0+5d\n", 42);
+ 	ft_printf("%0+5d\n", -42);
+ 	printf("%0+5d\n", -42);
+	ft_printf("% 10.5d\n", 4242);
+	printf("% 10.5d\n", 4242);
+	ft_printf("%03.2d\n", -1);
+	printf("%03.2d\n", -1);
+ft_printf("@moulitest: %.10d|\n", -42);
+printf("@moulitest: %.10d|\n", -42);
+ft_printf("@moulitest: %.d %.0d|\n", 0, 0);
+printf("@moulitest: %.d %.0d|\n", 0, 0);
+ft_printf("@moulitest: %5.d %5.0d|\n", 0, 0);
+printf("@moulitest: %5.d %5.0d|\n", 0, 0);
+ft_printf("%03.2d|\n", 0);
+printf("%03.2d|\n", 0);
+
+ int	t =ft_printf("%lld\n", -9223372036854775808);
+ int s = printf("%lld\n", -9223372036854775808);
+
+ ft_printf("%d\n", t);
+ ft_printf("%d\n", s);
+ ft_printf("%15.4d\n", 424242);
+ printf("%15.4d\n", 424242);
+ ft_printf("%#o\n", 0);
+ printf("%#o\n", 0);
+ unsigned short sh = 65535;
+ ft_printf("%ll0|\n",USHRT_MAX);
+ printf("%ll0|\n", USHRT_MAX);
+// float fl = 12379.9;
+// ft_printf("%.15f|\n", fl);
+// printf("%.15f|\n", fl);
+// ft_printf("%.8f|\n", fl);
+// printf("%.8f|\n", fl);
+// ft_printf("%.9f|\n", fl);
+// printf("%.9f|\n", fl);
+// // ft_printf("%.9f|\n", 12379.900390625000);
+// // printf("%.9f|\n", 12379.900390625000);
+// ft_printf("%.7lf|\n", 12379.9003906250000001L);
+// printf("%.7lf|\n", 12379.9003906250000001);
+// ft_printf("%.1f|\n", 12379.250000001);
+// printf("%.1f|\n", 12379.250000001);
+}
+
 int main()
 {
 	int		integer = 1223;
@@ -814,12 +899,7 @@ int main()
 	/*int fa = printf("%s\n", 0);*/
 	/*printf("%d\n", fa);*/
 	/*printf("%d\n", fm);*/
-	/*ft_printf("%15.4s|\n", "42");*/
-	/*printf("%15.4s|\n", "42");*/
-	/*ft_printf("%#.o\n %#.0o\n", 0, 0);*/
-	/*printf("%#.o\n %#.0o\n", 0, 0);*/
-	ft_printf("%c\n", 42);
-	printf("%c\n", 42);
+	extra_check();
 	long int	lnb = LONG_MAX;
 	long int	lnb_neg = LONG_MIN;
 	long int	lnb_0 = 0;
@@ -834,7 +914,7 @@ int main()
 	/*printf("test: %.12Lf\n", b);*/
 	/*printf("test: %s\n", double_to_str(f, 12);*/
 	/*printf("test: %.12Lf\n", b);*/
-	
+
 	/*double_to_str(f, 50);*/
 	/*convert_longdbl_to_binary(b);*/
 	/*float_to_binary(b);*/

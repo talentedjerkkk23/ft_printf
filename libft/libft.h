@@ -6,7 +6,7 @@
 /*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/30 16:24:26 by palan             #+#    #+#             */
-/*   Updated: 2018/12/13 11:06:44 by palan            ###   ########.fr       */
+/*   Updated: 2019/02/15 19:10:47 by palan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void				ft_strdel(char **as);
 int					ft_atoi(const char *str);
 char				*ft_itoa(int n);
 char				*ft_ltoa(long long n);
+char				*ft_ultoa(unsigned long n);
 char				*ft_ltoa_base(unsigned long value, int base, short mode);
 char				*ft_itoa_base(long value, int base, short mode);
 void				*ft_memset(void *b, int c, size_t len);

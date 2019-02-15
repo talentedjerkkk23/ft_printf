@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/15 18:52:40 by palan             #+#    #+#             */
+/*   Updated: 2019/02/15 19:01:37 by palan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_H
 #define FT_PRINTF_H
 
@@ -81,7 +93,6 @@ typedef struct	s_fmt
 	int			fd;
 	int			total_len;
 	int			i;
-	int			curr_len;
 	short		hash;
 	short		plus;
 	short		minus;
@@ -95,8 +106,11 @@ typedef struct	s_fmt
 	short		have_prec;
 	short		mode;
 	short		fl_sign;
+	int			is_pl;
 }				t_fmt;
 
+int				l_strlen(char *str);
+void			set_width(const char *fmt, t_fmt *f);
 int				ft_printf(const char *fmt, ...);
 void			print_rounded(char **str, int prec);
 char			*long_double_to_str(long double num, int k_prec);
@@ -110,7 +124,7 @@ void			print_hex(short mode, t_fmt *f, va_list ap);
 void			print_unsigned_decimal(t_fmt *f, va_list ap);
 void			print_decimal(t_fmt *f, va_list ap);
 long			calc_len(long n, long count);
-int     		ft_parse_args(const char *fmt, t_fmt *f, va_list ap);
+int				ft_parse_args(const char *fmt, t_fmt *f, va_list ap);
 void			reset_format(t_fmt *f);
 void			print(const char *fmt, t_fmt *f, va_list ap);
 

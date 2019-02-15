@@ -3,15 +3,6 @@
 #include <math.h>
 #include "ft_printf.h"
 
-static int 	l_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 static long double	calc_len_mod(t_fmt *f, va_list ap)
 {
 	long double n;
@@ -22,7 +13,7 @@ static long double	calc_len_mod(t_fmt *f, va_list ap)
 		n = (va_arg(ap, long double));
 	else
 		n = (double)(va_arg(ap, double));
-	return(n);
+	return (n);
 }
 
 static void	write_left_align(t_fmt *f, char *num, long double n, int num_len)

@@ -1,21 +1,12 @@
 
 #include "ft_printf.h"
 
-static int 	l_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 static unsigned long	calc_len_mod(va_list ap)
 {
 	unsigned long n;
 
 	n = (va_arg(ap, unsigned long));
-	return(n);
+	return (n);
 }
 
 static void	write_left_align(t_fmt *f, char *num, int num_len)
@@ -24,7 +15,7 @@ static void	write_left_align(t_fmt *f, char *num, int num_len)
 
 	i = 0;
 	while (!f->zero && f->precision <= num_len && f->field_width-- > num_len)
-		f->total_len += write(1, " ", 1); 
+		f->total_len += write(1, " ", 1);
 	if (f->hash)
 	{
 		f->total_len += write(1, (f->mode == 1 ? "0x" : "0X"), 2);
@@ -63,7 +54,7 @@ static void	write_right_align(t_fmt *f, char *num, int num_len)
 		f->total_len += write(1, "  ", 1);
 }
 
-void	print_ptr(t_fmt *f, va_list ap)
+void		print_ptr(t_fmt *f, va_list ap)
 {
 	unsigned long n;
 	char *num;
@@ -86,7 +77,7 @@ void	print_ptr(t_fmt *f, va_list ap)
 	if (f->hash)
 	{
 		if (f->field_width != 0)
-			f->field_width -= 2;;
+			f->field_width -= 2;
 	}
 	if (f->minus)
 		write_right_align(f, num, num_len);

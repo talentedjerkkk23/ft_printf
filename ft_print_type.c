@@ -1,12 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_type.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/15 15:05:32 by palan             #+#    #+#             */
+/*   Updated: 2019/02/15 15:06:04 by palan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-
-static void		print_spec_symb(t_fmt *f)
+static void	print_spec_symb(t_fmt *f)
 {
+	if (!f->minus)
+	{
+		while (f->field_width-- > 1)
+			f->total_len += write(1, " ", 1);
+	}
 	f->total_len += write(1, "%", 1);
+	if (f->minus)
+	{
+		while (f->field_width-- > 1)
+			f->total_len += write(1, " ", 1);
+	}
 }
 
-void			print(const char *fmt, t_fmt *f, va_list ap)
+void		print(const char *fmt, t_fmt *f, va_list ap)
 {
 	if (fmt[f->i] == 'd' || fmt[f->i] == 'i')
 		print_decimal(f, ap);

@@ -1,17 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_unsigned_decimal.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/15 14:56:49 by palan             #+#    #+#             */
+/*   Updated: 2019/02/15 19:13:28 by palan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static int 	l_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 static unsigned long	calc_len_mod(t_fmt *f, va_list ap)
 {
 	unsigned long n;
+
 	if (f->len_modif == H)
 		n = ((unsigned short)va_arg(ap, unsigned long));
 	else if (f->len_modif == HH)
@@ -19,13 +23,13 @@ static unsigned long	calc_len_mod(t_fmt *f, va_list ap)
 	else if (f->len_modif == L)
 		n = (va_arg(ap, unsigned long));
 	else if (f->len_modif == LL)
-		n =  ((unsigned long long)va_arg(ap, unsigned long));
+		n = ((unsigned long long)va_arg(ap, unsigned long));
 	else
-		n = (unsigned int)(va_arg(ap, unsigned long));
-	return(n);
+		n = (unsigned)(va_arg(ap, unsigned long));
+	return (n);
 }
 
-static void	write_left_align(t_fmt *f, char *num, int num_len)
+static void				write_left_align(t_fmt *f, char *num, int num_len)
 {
 	int		i;
 
@@ -47,9 +51,10 @@ static void	write_left_align(t_fmt *f, char *num, int num_len)
 		f->total_len += write(1, &num[i++], 1);
 }
 
-static void	write_right_align(t_fmt *f, char *num, int num_len)
+static void				write_right_align(t_fmt *f, char *num, int num_len)
 {
 	int i;
+
 	i = 0;
 	if (f->precision > num_len)
 	{
@@ -62,17 +67,17 @@ static void	write_right_align(t_fmt *f, char *num, int num_len)
 	while (num[i])
 		f->total_len += write(1, &num[i++], 1);
 	while (f->field_width-- > num_len)
-		f->total_len += write(1, " ", 1); 
+		f->total_len += write(1, " ", 1);
 }
 
-void	print_unsigned_decimal(t_fmt *f, va_list ap)
+void					print_unsigned_decimal(t_fmt *f, va_list ap)
 {
-	unsigned long n;
-	char *num;
-	int num_len;
+	unsigned long	n;
+	char			*num;
+	int				num_len;
 
 	n = calc_len_mod(f, ap);
-	num = ft_ltoa(n);
+	num = ft_ultoa(n);
 	num_len = l_strlen(num);
 	if (n == 0 && f->have_prec && f->precision == 0 && f->field_width == 0)
 		return ;

@@ -1,60 +1,72 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_decimal.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/15 16:21:13 by palan             #+#    #+#             */
+/*   Updated: 2019/02/15 19:36:29 by palan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static int 	l_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-static long 	calc_len_mod(t_fmt *f, va_list ap)
+static long	calc_len_mod(t_fmt *f, va_list ap)
 {
 	long n;
+
 	if (f->len_modif == H)
 		n = ((short)va_arg(ap, long));
 	else if (f->len_modif == HH)
 		n = ((char)va_arg(ap, long));
 	else if (f->len_modif == L)
-		n =  (va_arg(ap, long));
+		n = (va_arg(ap, long));
 	else if (f->len_modif == LL)
-		n =  ((long long)va_arg(ap, long));
+		n = ((long long)va_arg(ap, long));
 	else
-	n = (int)(va_arg(ap, long));
-	return(n);
+		n = (int)(va_arg(ap, long));
+	return (n);
 }
 
-static void	write_left_align(t_fmt *f, char *num, long n, int num_len)
+static void	write_left_after_flags(t_fmt *f, char *num, long n, int num_len)
 {
-	int		i;
-	int		is_pl;
+	int i;
+	int	prec_mo;
 
-	is_pl = 0;
+	prec_mo = (f->precision > 0) ? 1 : 0;
 	i = (n < 0) ? 1 : 0;
-	while (f->have_prec && f->field_width-- > (f->precision))
-		f->total_len += write(1, " ", 1);
-	if (f->space && !f->plus && n > 0)
-		f->total_len += write(1, " ", 1);
-	if (!f->plus && f->zero && n < 0)
-		f->total_len += write(1, "-", 1);
-	if (f->plus && (f->precision >= num_len)) 
+	if (f->plus && ((f->precision >= num_len) || f->zero))
 	{
 		f->total_len += write(1, ((num[0] == '-') ? "-" : "+"), 1);
-		is_pl = 1;
+		f->is_pl = 1;
 	}
 	while (!f->zero && !f->have_prec && f->field_width-- > num_len)
 		f->total_len += write(1, " ", 1);
 	while (f->zero && f->field_width-- > num_len)
 		f->total_len += write(1, "0", 1);
 	while (f->precision-- > (num_len))
-		f->total_len += write(1, "0", 1); 
-	if (f->plus && f->have_prec == 0 && is_pl == 0)
+		f->total_len += write(1, "0", 1);
+	if (f->plus && f->have_prec == 0 && f->is_pl == 0)
 		f->total_len += write(1, ((num[0] == '-') ? "-" : "+"), 1);
-	else if (!f->zero && n < 0 && is_pl == 0)
+	else if (!f->zero && n < 0 && f->is_pl == 0)
 		f->total_len += write(1, "-", 1);
-	while (num[i])
+	while (num[i] && (!f->have_prec || (n != 0 ||
+	f->precision > 0) || (n == 0 && prec_mo)))
 		f->total_len += write(1, &num[i++], 1);
+}
+
+static void	write_left_align(t_fmt *f, char *num, long n, int num_len)
+{
+
+	f->is_pl = 0;
+	while (f->have_prec && f->field_width-- > (f->precision))
+		f->total_len += write(1, " ", 1);
+	if (f->space && !f->plus && n > 0)
+		f->total_len += write(1, " ", 1);
+	if (!f->plus && (f->zero || f->have_prec) && n < 0 && !f->is_pl++)
+		f->total_len += write(1, "-", 1);
+	write_left_after_flags(f, num, n, num_len);
 }
 
 static void	write_right_align(t_fmt *f, char *num, long n, int num_len)
@@ -77,14 +89,10 @@ static void	write_right_align(t_fmt *f, char *num, long n, int num_len)
 	while (num[i])
 		f->total_len += write(1, &num[i++], 1);
 	while (!f->pmf && f->field_width-- > num_len)
-		f->total_len += write(1, " ", 1); // all " "
-	while (f->plus && f->field_width-- > (num_len + ((n < 0) ? 0 : 1)) && f->precision == -1)
-		f->total_len += write(1, "#", 1);
-	while (!f->plus && f->field_width-- > (num_len ) && f->precision == -1)
-		f->total_len += write(1, "@", 1);
+		f->total_len += write(1, " ", 1);
 }
 
-void	print_decimal(t_fmt *f, va_list ap)
+void		print_decimal(t_fmt *f, va_list ap)
 {
 	long	n;
 	char	*num;
@@ -94,16 +102,18 @@ void	print_decimal(t_fmt *f, va_list ap)
 	num = ft_ltoa(n);
 	num_len = l_strlen(num);
 	f->pmf = (f->precision > f->field_width) ? 1 : 0;
-	if (f->minus)
+	if (f->minus || f->have_prec)
 		f->zero = 0;
 	if (f->plus)
 		f->space = 0;
+	else if (f->space)
+		f->field_width--;
 	if (f->plus || n < 0)
-		{
-			f->field_width--;
-			if (n < 0)
-				num_len--;
-		}
+	{
+		f->field_width--;
+		if (n < 0)
+			num_len--;
+	}
 	if (f->minus)
 		write_right_align(f, num, n, num_len);
 	else
