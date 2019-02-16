@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print_hex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:08:10 by palan             #+#    #+#             */
-/*   Updated: 2019/02/16 00:08:18 by talentedjer      ###   ########.fr       */
+/*   Updated: 2019/02/16 18:47:45 by palan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static uintmax_t	calc_len_mod(t_fmt *f, va_list ap)
+static uintmax_t		calc_len_mod(t_fmt *f, va_list ap)
 {
 	uintmax_t n;
 
@@ -24,6 +24,10 @@ static uintmax_t	calc_len_mod(t_fmt *f, va_list ap)
 		n = (va_arg(ap, uintmax_t));
 	else if (f->len_modif == LL)
 		n = ((unsigned long long)va_arg(ap, uintmax_t));
+	else if (f->len_modif == J)
+		n = (va_arg(ap, uintmax_t));
+	else if (f->len_modif == Z)
+		n = (size_t)(va_arg(ap, uintmax_t));
 	else
 		n = (unsigned int)(va_arg(ap, uintmax_t));
 	return (n);
@@ -33,12 +37,12 @@ static void				write_left_align(t_fmt *f,
 char *num, uintmax_t n, int num_len)
 {
 	int		i;
+	int		pr;
 
+	pr = (f->precision > num_len ? f->precision : num_len);
 	i = 0;
-	while (!f->zero && f->precision <= num_len && f->field_width-- > num_len)
+	while (!f->zero && f->field_width-- > pr)
 		f->total_len += write(1, " ", 1);
-	/*while (!f->zero && f->have_prec && f->field_width-- > (f->precision))*/
-		/*f->total_len += write(1, " ", 1);*/
 	if (f->hash && n != 0)
 	{
 		f->total_len += write(1, (f->mode == 1 ? "0x" : "0X"), 2);
@@ -47,8 +51,6 @@ char *num, uintmax_t n, int num_len)
 		f->total_len += write(1, "0", 1);
 	while (f->zero && f->field_width-- > (num_len))
 		f->total_len += write(1, "0", 1);
-	/*printf("prec: %d\n", f->precision);*/
-	/*printf("have_prec: %d\n", f->have_prec);*/
 	if (((f->have_prec && f->precision > 0) || n != 0) || !f->have_prec)
 	{
 		while (num[i])
@@ -88,7 +90,7 @@ char *num, uintmax_t n, int num_len)
 
 void					print_hex(short mode, t_fmt *f, va_list ap)
 {
-	uintmax_t	n;
+	uintmax_t		n;
 	char			*num;
 	int				num_len;
 

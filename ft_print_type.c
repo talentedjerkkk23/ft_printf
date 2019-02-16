@@ -6,7 +6,7 @@
 /*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:05:32 by palan             #+#    #+#             */
-/*   Updated: 2019/02/15 15:06:04 by palan            ###   ########.fr       */
+/*   Updated: 2019/02/16 15:26:34 by palan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,25 @@ static void	print_spec_symb(t_fmt *f)
 	{
 		while (f->field_width-- > 1)
 			f->total_len += write(1, " ", 1);
+	}
+}
+
+static void	print_big_dou(const char *fmt, t_fmt *f, va_list ap)
+{
+	if (fmt[f->i] == 'U')
+	{
+		f->len_modif = L;
+		print_unsigned_decimal(f, ap);
+	}
+	else if (fmt[f->i] == 'D')
+	{
+		f->len_modif = L;
+		print_decimal(f, ap);
+	}
+	else if (fmt[f->i] == 'O')
+	{
+		f->len_modif = L;
+		print_octal(f, ap);
 	}
 }
 
@@ -47,4 +66,6 @@ void		print(const char *fmt, t_fmt *f, va_list ap)
 		print_ptr(f, ap);
 	else if (fmt[f->i] == '%')
 		print_spec_symb(f);
+	else if (fmt[f->i] == 'D' || fmt[f->i] == 'O' || fmt[f->i] == 'U')
+		print_big_dou(fmt, f, ap);
 }

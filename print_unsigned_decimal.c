@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   print_unsigned_decimal.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 14:56:49 by palan             #+#    #+#             */
-/*   Updated: 2019/02/16 00:23:56 by talentedjer      ###   ########.fr       */
+/*   Updated: 2019/02/16 17:18:15 by palan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
 
 static uintmax_t	calc_len_mod(t_fmt *f, va_list ap)
 {
@@ -22,27 +21,31 @@ static uintmax_t	calc_len_mod(t_fmt *f, va_list ap)
 	else if (f->len_modif == HH)
 		n = ((unsigned char)va_arg(ap, uintmax_t));
 	else if (f->len_modif == L)
-		n = (unsigned long)(va_arg(ap, uintmax_t));
+		n = (va_arg(ap, uintmax_t));
 	else if (f->len_modif == LL)
 		n = ((unsigned long long)va_arg(ap, uintmax_t));
 	else if (f->len_modif == J)
-		n = va_arg(ap, uintmax_t);
+		n = (va_arg(ap, uintmax_t));
+	else if (f->len_modif == Z)
+		n = (size_t)(va_arg(ap, uintmax_t));
 	else
-		n = (unsigned)(va_arg(ap, uintmax_t));
+		n = (unsigned int)(va_arg(ap, uintmax_t));
 	return (n);
 }
 
 static void				write_left_align(t_fmt *f, char *num, int num_len)
 {
 	int		i;
+	int pr_or_num;
 
+	pr_or_num = (f->precision > num_len) ? f->precision : num_len;
 	i = 0;
 	if ((f->space || f->plus) && f->have_prec)
 	{
 		f->total_len += write(1, " ", 1);
 		f->field_width--;
 	}
-	while (f->have_prec && f->field_width-- > f->precision)
+	while (f->have_prec && f->field_width-- > pr_or_num)
 		f->total_len += write(1, " ", 1);
 	while (!f->zero && !f->have_prec && f->field_width-- > (num_len))
 		f->total_len += write(1, " ", 1);
@@ -75,7 +78,7 @@ static void				write_right_align(t_fmt *f, char *num, int num_len)
 
 void					print_unsigned_decimal(t_fmt *f, va_list ap)
 {
-	uintmax_t	n;
+	uintmax_t		n;
 	char			*num;
 	int				num_len;
 

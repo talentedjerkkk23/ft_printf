@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 17:31:42 by palan             #+#    #+#             */
-/*   Updated: 2019/02/16 00:21:29 by talentedjer      ###   ########.fr       */
+/*   Updated: 2019/02/16 19:51:40 by palan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		ft_parse_args(const char *fmt, t_fmt *f, va_list ap)
 			(f->i)++;
 			if (ft_strchr(" -+#.0123456789hlLjz", fmt[f->i]))
 				ft_set_output_format(fmt, f);
-			if (ft_strchr("csSpdioOuUxXf%", fmt[f->i]))
+			if (ft_strchr("csSpdioOuUxXfDOU%", fmt[f->i]))
 			{
 				print(fmt, f, ap);
 			}

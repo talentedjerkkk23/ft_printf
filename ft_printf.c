@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/16 14:23:41 by palan             #+#    #+#             */
+/*   Updated: 2019/02/16 14:24:34 by palan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
 int	ft_printf(const char *fmt, ...)
 {
-	va_list	argp;
-	t_fmt *f;
-	int len;
+	va_list		argp;
+	t_fmt		*f;
+	int			len;
 
 	f = (t_fmt*)malloc(sizeof(t_fmt));
 	reset_format(f);
