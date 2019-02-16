@@ -23,11 +23,12 @@ static void	write_left_align(t_fmt *f, char *num, long double n, int num_len)
 	/*i = (n < 0) ? 1 : 0;*/
 	n--;
 	num_len--;
-	print_rounded(&num, f->precision);
+	print_rounded(f, &num, f->precision);
 	i = 0;
 	while (num[i] && num[i] != '.')
 		f->total_len += write(1, &num[i++], 1);
-	f->total_len += write(1, &num[i++], 1);
+	if (f->hash || (!f->hash && f->precision))
+		f->total_len += write(1, &num[i++], 1);
 	while (num[i] && f->precision)
 	{
 		f->total_len += write(1, &num[i++], 1);
@@ -42,7 +43,7 @@ static void	write_right_align(t_fmt *f, char *num, long double  n, int num_len)
 	i = 0;
 	n--;
 	num_len--;
-	print_rounded(&num, f->precision);
+	print_rounded(f, &num, f->precision);
 	while (num[i] && num[i] != '.')
 		f->total_len += write(1, &num[i++], 1);
 	while (num[i] && f->precision--)

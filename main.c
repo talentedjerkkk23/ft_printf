@@ -450,36 +450,39 @@ void	float_checker()
 {
 	int i = 0;
 
-	ft_printf("%d)my: %f|\n", 1.00, i++);
+	ft_printf("my: %f|\n", 1.00);
 	printf("og: %f|\n", 1.00);
-	ft_printf("%d)my: %f|\n", 32.23, i++);
+	ft_printf("my: %f|\n", 32.23);
 	printf("og: %f|\n", 32.23);
-	ft_printf("%d)my: %.5f|\n", 122.358, i++);
+	ft_printf("my: %.5f|\n", 122.358);
 	printf("og: %.5f|\n", 122.358);
-	ft_printf("%d)my: %f|\n", -52.9, i++);
+	ft_printf("my: %f|\n", -52.9);
 	printf("og: %f|\n", -52.9);
-	ft_printf("%d)my: %f|\n", -9.88, i++);
+	ft_printf("my: %f|\n", -9.88);
 	printf("og: %f|\n", -9.88);
-	ft_printf("%d)my: %f|\n", 78.221, i++);
+	ft_printf("my: %f|\n", 78.221);
 	printf("og: %f|\n", 78.221);
-	ft_printf("%d)my: %.0lf|\n", 99999999.1213, i++);
+	ft_printf("my: %.0lf|\n", 99999999.1213);
 	printf("og: %.0lf|\n", 99999999.1213);
-	ft_printf("%d)my: %f|\n", 0.1223, i++);
+	ft_printf("my: %f|\n", 0.1223);
 	printf("og: %f|\n", 0.1223);
-	ft_printf("%d)my: %3.f|\n", 42.123312, i++);
+	ft_printf("my: %3.f|\n", 42.123312);
 	printf("og: %3.f|\n", 42.123312);
-	ft_printf("%d)my: %f|\n", 10.01010101, i++);
+	ft_printf("my: %f|\n", 10.01010101);
 	printf("og: %f|\n", 10.01010101);
-	ft_printf("%d)my: %f|\n", 0.0000, i++);
+	ft_printf("my: %f|\n", 0.0000);
 	printf("og: %f|\n", 0.0000);
-	ft_printf("%d)my: %.2f|\n", 9.9999999, i++);
+	ft_printf("my: %.2f|\n", 9.9999999);
 	printf("og: %.2f|\n", 9.9999999);
-	ft_printf("%d)my: %.f|\n", 9.9999999, i++);
+	ft_printf("my: %.f|\n", 9.9999999);
 	printf("og: %.f|\n", 9.9999999);
-	ft_printf("%d)my: %.f|\n", 999999.99, i++);
+	ft_printf("my: %.f|\n", 999999.99);
 	printf("og: %.f|\n", 999999.99);
-	ft_printf("%d)my: %.f|\n", 89.99, i++);
-	printf("og: %.f|\n", 89.99);
+	double ff = 89.999;
+	ft_printf("my: %.f|\n", ff);
+	printf("og: %.f|\n", ff);
+	ft_printf("my: %.2f|\n", 189.999);
+	printf("og: %.2f|\n", 189.999);
 }
 
 void str_checker()
@@ -927,14 +930,14 @@ int main()
 	/*hex_checker();*/
 	/*octal_checker();*/
 	/*char_checker();*/
-	/*float_checker();*/
+	float_checker();
 	/*str_checker();*/
 	/*ptr_checker();*/
 	/*int fm = ft_printf("%s\n", 0);*/
 	/*int fa = printf("%s\n", 0);*/
 	/*printf("%d\n", fa);*/
 	/*printf("%d\n", fm);*/
-	extra_check();
+	// extra_check();
 	long int	lnb = LONG_MAX;
 	long int	lnb_neg = LONG_MIN;
 	long int	lnb_0 = 0;

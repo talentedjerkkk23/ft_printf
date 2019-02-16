@@ -6,7 +6,7 @@
 /*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 18:52:40 by palan             #+#    #+#             */
-/*   Updated: 2019/02/16 00:17:32 by talentedjer      ###   ########.fr       */
+/*   Updated: 2019/02/17 00:11:52 by talentedjer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void			set_jz_modif(const char *fmt, t_fmt *f);
 int				l_strlen(char *str);
 void			set_width(const char *fmt, t_fmt *f);
 int				ft_printf(const char *fmt, ...);
-void			print_rounded(char **str, int prec);
+void			print_rounded(t_fmt *f, char **str, int prec);
 char			*long_double_to_str(long double num, int k_prec);
 char			*double_to_str(double num, int k_prec);
 void			print_str(t_fmt *f, va_list ap);

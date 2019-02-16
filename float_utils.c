@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   float_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 17:20:06 by palan             #+#    #+#             */
-/*   Updated: 2019/02/16 17:20:06 by palan            ###   ########.fr       */
+/*   Updated: 2019/02/17 00:25:44 by talentedjer      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	move_str_right(char **str)
 	free(tmp);
 }
 
-void	round_nine(char **str, int i)
+void	round_nine(t_fmt *f, char **str, int i)
 {
 	if ((*str)[i + 1] >= '5')
 	{
@@ -101,7 +101,12 @@ void	round_nine(char **str, int i)
 					i--;
 					if ((*str)[i] != '9')
 						break ;
-					move_str_right(str);
+					if (i == 0)
+					{
+						move_str_right(str);
+						(*str)[i] = '1';
+						return ;
+					}
 				}
 			}
 			(*str)[i] += 1;
@@ -111,16 +116,18 @@ void	round_nine(char **str, int i)
 	}
 }
 
-void	print_rounded(char **str, int prec)
+void	print_rounded(t_fmt *f, char **str, int prec)
 {
 	int		i;
+	int		r_prec;
 
+	r_prec = f->precision;
 	i = 0;
 	while ((*str)[i] != '.')
 		i++;
-	while (prec--)
+	while (r_prec--)
 		i++;
-	round_nine(str, i);
+	round_nine(f, str, i);
 }
 
 void	convert_fpart(char **str, int i, double fpart, int prec)
