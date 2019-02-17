@@ -3,52 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   float_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/16 17:20:06 by palan             #+#    #+#             */
-/*   Updated: 2019/02/17 00:25:44 by talentedjer      ###   ########.fr       */
+/*   Updated: 2019/02/17 17:18:30 by palan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-
-char *long_double_to_str(long double num, int prec)
-{
-	char *str = (char*)malloc(sizeof(char) * 100);
-	ft_bzero(str, 100);
-	int i = 0;
-	unsigned long Integral = num;
-	long double fractional = num - Integral;
-	while (Integral)
-	{
-		int rem = Integral % 10;
-		str[i] = (rem +'0');
-		Integral /= 10;
-		i++;
-	}
-	str[i] = '.';
-	i++;
-	while (prec--)
-	{
-		fractional *= 10;
-		Integral = fractional;
-		fractional = fractional - Integral;
-		str[i] = Integral + '0';
-		i++;
-	}
-	return str;
-}
-
-
-void	reverse_integ(char **str)
+static void	reverse_integ(char **str)
 {
 	int		i;
 	int		j;
 	char	tmp;
 
 	i = 0;
-while ((*str)[i] && (*str)[i] != '.')
+	while ((*str)[i] && (*str)[i] != '.')
 		i++;
 	if (i == 0 || i == 1)
 		return ;
@@ -64,7 +35,7 @@ while ((*str)[i] && (*str)[i] != '.')
 	}
 }
 
-void	move_str_right(char **str)
+void		move_str_right(char **str)
 {
 	char	*tmp;
 	int		i;
@@ -84,53 +55,26 @@ void	move_str_right(char **str)
 	free(tmp);
 }
 
-void	round_nine(t_fmt *f, char **str, int i)
-{
-	if ((*str)[i + 1] >= '5')
-	{
-		if ((*str)[i] == '9')
-		{
-			(*str)[i] = '0';
-			i--;
-			while ((*str)[i] && (*str)[i] == '9')
-			{
-				(*str)[i] = '0';
-				i--;
-				if ((*str)[i] == '.')
-				{
-					i--;
-					if ((*str)[i] != '9')
-						break ;
-					if (i == 0)
-					{
-						move_str_right(str);
-						(*str)[i] = '1';
-						return ;
-					}
-				}
-			}
-			(*str)[i] += 1;
-		}
-		else if ((*str)[i] != '.')
-			(*str)[i] += 1;
-	}
-}
-
-void	print_rounded(t_fmt *f, char **str, int prec)
+void		print_rounded(t_fmt *f, char **str, int prec)
 {
 	int		i;
 	int		r_prec;
 
 	r_prec = f->precision;
-	i = 0;
-	while ((*str)[i] != '.')
-		i++;
+	f->j = 0;
+	while ((*str)[f->j] != '.')
+		(f->j)++;
 	while (r_prec--)
-		i++;
-	round_nine(f, str, i);
+		(f->j)++;
+	if (f->precision == 0)
+	{
+		round_prec_zero(f, str, 0);
+		return ;
+	}
+	round_prec_all(f, str, 0);
 }
 
-void	convert_fpart(char **str, int i, double fpart, int prec)
+static void	convert_fpart(char **str, int i, double fpart, int prec)
 {
 	unsigned long ipart;
 
@@ -147,14 +91,14 @@ void	convert_fpart(char **str, int i, double fpart, int prec)
 	}
 }
 
-char *double_to_str(double num, int prec)
+char		*double_to_str(long double num, int k_prec, int rem)
 {
 	char			*str;
 	int				i;
 	unsigned long	ipart;
-	double			fpart;
+	long double		fpart;
 
-	str = (char*)malloc(sizeof(char) * 100 + prec);
+	str = (char*)malloc(sizeof(char) * 100 + k_prec);
 	i = 0;
 	if (num < 0)
 		num *= -1;
@@ -164,14 +108,11 @@ char *double_to_str(double num, int prec)
 		str[i++] = '0';
 	while (ipart)
 	{
-		int rem = ipart % 10;
+		rem = ipart % 10;
 		str[i] = (rem + '0');
-		/*write(1, &str[i], 1);*/
 		ipart /= 10;
 		i++;
 	}
-	convert_fpart(&str, i, fpart, prec);
-	return str;
+	convert_fpart(&str, i, fpart, k_prec);
+	return (str);
 }
-
-

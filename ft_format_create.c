@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_format_create.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 14:54:37 by palan             #+#    #+#             */
-/*   Updated: 2019/02/16 00:17:16 by talentedjer      ###   ########.fr       */
+/*   Updated: 2019/02/17 15:44:25 by palan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	reset_format(t_fmt *f)
 	f->mode = 0;
 	f->fl_sign = 0;
 	f->is_pl = 0;
+	f->was_m = 0;
 }
 
 void	set_jz_modif(const char *fmt, t_fmt *f)

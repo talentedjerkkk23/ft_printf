@@ -6,7 +6,7 @@
 /*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 15:11:05 by palan             #+#    #+#             */
-/*   Updated: 2019/02/16 20:08:47 by palan            ###   ########.fr       */
+/*   Updated: 2019/02/17 18:12:00 by palan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		write_left_align(t_fmt *f, char *num, int num_len)
 	int		i;
 	int		pc;
 
-	pc = f->field_width - f->precision + num_len;
+	pc = f->field_width - f->precision;
 	i = 0;
 	while (f->zero && f->have_prec && f->field_width-- >= pc)
 		f->total_len += write(1, "0", 1);
@@ -57,7 +57,7 @@ void			print_str(t_fmt *f, va_list ap)
 	int		num_len;
 
 	s = va_arg(ap, char *);
-	if (s == NULL)
+	if (s == NULL && f->field_width)
 	{
 		f->total_len += write(1, "(null)", 6);
 		return ;

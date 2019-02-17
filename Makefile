@@ -3,6 +3,7 @@ SRC = ft_printf.c parser.c ft_format_create.c ft_print_type.c print_utils.c \
 	  print_string.c print_ptr.c print_float.c float_utils.c libft/ft_atoi.c libft/ft_ltoa.c \
 	  libft/ft_ltoa_base.c libft/ft_strchr.c libft/ft_isdigit.c libft/ft_itoa_base.c \
 	  libft/ft_bzero.c libft/ft_strdup.c libft/ft_itoa.c libft/ft_strlen.c libft/ft_ultoa.c \
+	  roundf_utils.c
 
 HEAD = ft_printf.h libft/libft.h
 

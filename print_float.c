@@ -1,6 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_float.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/17 17:13:08 by palan             #+#    #+#             */
+/*   Updated: 2019/02/17 18:03:34 by palan            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-
-#include <math.h>
 #include "ft_printf.h"
 
 static long double	calc_len_mod(t_fmt *f, va_list ap)
@@ -16,62 +25,97 @@ static long double	calc_len_mod(t_fmt *f, va_list ap)
 	return (n);
 }
 
-static void	write_left_align(t_fmt *f, char *num, long double n, int num_len)
+int					count_before_dot(char *num)
+{
+	int i;
+
+	i = 0;
+	while (num[i] && num[i] != '.')
+		i++;
+	return (i + 1);
+}
+
+static void			write_left_align(t_fmt *f, char *num,
+long double n)
 {
 	int		i;
+	int		ismin;
 
-	/*i = (n < 0) ? 1 : 0;*/
-	n--;
-	num_len--;
+	ismin = (n < 0) ? 1 : 0;
 	print_rounded(f, &num, f->precision);
 	i = 0;
+	if (f->zero && ismin && !f->plus && f->field_width--)
+		f->total_len += write(1, "-", 1);
+	if (f->zero && f->plus && f->field_width--)
+		f->total_len += write(1, ((n < 0) ? "-" : "+"), 1);
+	while (f->zero && f->field_width-- > f->precision + count_before_dot(num))
+		f->total_len += write(1, "0", 1);
+	while (!f->zero && f->field_width-- > f->precision
+	+ count_before_dot(num) + (f->plus || ismin))
+		f->total_len += write(1, " ", 1);
+	if (!f->zero && ismin && !f->plus && f->field_width--)
+		f->total_len += write(1, "-", 1);
+	if (!f->zero && f->plus && f->field_width--)
+		f->total_len += write(1, ((n < 0) ? "-" : "+"), 1);
 	while (num[i] && num[i] != '.')
 		f->total_len += write(1, &num[i++], 1);
 	if (f->hash || (!f->hash && f->precision))
-		f->total_len += write(1, &num[i++], 1);
-	while (num[i] && f->precision)
-	{
-		f->total_len += write(1, &num[i++], 1);
-		f->precision--;
-	}
-}
-
-static void	write_right_align(t_fmt *f, char *num, long double  n, int num_len)
-{
-	int i;
-	/*i = (n < 0) ? 1 : 0;*/
-	i = 0;
-	n--;
-	num_len--;
-	print_rounded(f, &num, f->precision);
-	while (num[i] && num[i] != '.')
 		f->total_len += write(1, &num[i++], 1);
 	while (num[i] && f->precision--)
 		f->total_len += write(1, &num[i++], 1);
 }
 
-void	print_floating_point(t_fmt *f, va_list ap)
+static void			write_right_align(t_fmt *f, char *num,
+long double n)
 {
-	long double n;
-	char *num;
-	int num_len;
+	int		i;
+	int		ismin;
+	int		prec;
+
+	prec = f->precision;
+	i = 0;
+	ismin = (n < 0) ? 1 : 0;
+	print_rounded(f, &num, f->precision);
+	if (ismin && !f->plus && f->field_width--)
+		f->total_len += write(1, "-", 1);
+	if (f->plus && f->field_width--)
+		f->total_len += write(1, ((n < 0) ? "-" : "+"), 1);
+	while (num[i] && num[i] != '.')
+		f->total_len += write(1, &num[i++], 1);
+	if (f->hash || (!f->hash && f->precision))
+		f->total_len += write(1, &num[i++], 1);
+	while (num[i] && f->precision--)
+		f->total_len += write(1, &num[i++], 1);
+	while (f->field_width-- > prec
+	+ count_before_dot(num))
+		f->total_len += write(1, " ", 1);
+}
+
+void				print_floating_point(t_fmt *f, va_list ap)
+{
+	long double	n;
+	char		*num;
+	int			num_len;
 
 	n = calc_len_mod(f, ap);
-	/*printf("n: %Lf\n", n);*/
 	if (n < 0)
 		f->fl_sign = 1;
 	if (!f->have_prec)
 		f->precision = 6;
-	num = double_to_str(n, f->precision + 19);
-	/*printf("\nnum: %s\n", num);*/
+	num = double_to_str(n, f->precision + 20, 0);
 	num_len = l_strlen(num);
 	if (f->minus)
 		f->zero = 0;
 	if (f->plus)
 		f->space = 0;
 	if (f->minus)
-		write_right_align(f, num, n, num_len);
+		write_right_align(f, num, n);
 	else
-		write_left_align(f, num, n, num_len);
+	{
+		if (!f->plus && f->zero && f->space && n >= 0 && f->field_width--)
+			f->total_len += write(1, " ", 1);
+
+		write_left_align(f, num, n);
+	}
 	free(num);
 }

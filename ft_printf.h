@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 18:52:40 by palan             #+#    #+#             */
-/*   Updated: 2019/02/17 00:11:52 by talentedjer      ###   ########.fr       */
+/*   Updated: 2019/02/17 18:04:17 by palan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,68 +31,6 @@
 # define ZERO 4
 # define SPACE 5
 
-//remove
-#include <stdio.h>
-
-struct                    s_ldbits
-{
-    unsigned long        man : 64;
-    unsigned long        exp : 15;
-    unsigned long        sign : 1;
-};
-
-typedef union            u_ldbl
-{
-    long double            f;
-    struct s_ldbits        b;
-}                        t_ldbl;
-
-struct                    s_dbits
-{
-    unsigned long        man : 52;
-    unsigned long        exp : 11;
-    unsigned long        sign : 1;
-};
-
-typedef union            u_dbl
-{
-    double            f;
-    struct s_dbits        b;
-}                        t_dbl;
-
-struct                    s_floatbits
-{
-    unsigned long        man : 23;
-    unsigned long        exp : 8;
-    unsigned long        sign : 1;
-};
-
-typedef union            u_fbl
-{
-    float            f;
-    struct s_floatbits        b;
-}                        t_fbl;
-
-
-
-typedef union	s_ldouble {
-	long double f;
-	unsigned long long u;
-}				t_ldouble;
-
-typedef union	s_double {
-	double f;
-	unsigned long u;
-}				t_double;
-
-typedef union	s_float {
-	float f;
-	unsigned u;
-	unsigned char exp;
-	unsigned long mantissa;
-	char *sign;
-}				t_float;
-
 typedef struct	s_fmt
 {
 	int			fd;
@@ -112,15 +50,21 @@ typedef struct	s_fmt
 	short		mode;
 	short		fl_sign;
 	int			is_pl;
+	int			was_m;
+	int			j;
 }				t_fmt;
 
+char			*double_to_str(long double num, int k_prec, int rem);
+void			move_str_right(char **str);
+void			round_prec_zero(t_fmt *f, char **str, int flag);
+void			round_prec_all(t_fmt *f, char **str, int flag);
+void			round_nine(t_fmt *f, char **str);
 void			set_jz_modif(const char *fmt, t_fmt *f);
 int				l_strlen(char *str);
 void			set_width(const char *fmt, t_fmt *f);
 int				ft_printf(const char *fmt, ...);
 void			print_rounded(t_fmt *f, char **str, int prec);
 char			*long_double_to_str(long double num, int k_prec);
-char			*double_to_str(double num, int k_prec);
 void			print_str(t_fmt *f, va_list ap);
 void			print_ptr(t_fmt *f, va_list ap);
 void			print_floating_point(t_fmt *f, va_list ap);

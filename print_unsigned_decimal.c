@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print_unsigned_decimal.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: talentedjerk <talentedjerk@student.42.f    +#+  +:+       +#+        */
+/*   By: palan <palan@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/15 14:56:49 by palan             #+#    #+#             */
-/*   Updated: 2019/02/16 22:25:10 by talentedjer      ###   ########.fr       */
+/*   Updated: 2019/02/17 12:42:27 by palan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static uintmax_t	calc_len_mod(t_fmt *f, va_list ap)
+static uintmax_t		calc_len_mod(t_fmt *f, va_list ap)
 {
 	uintmax_t n;
 
@@ -36,7 +36,7 @@ static uintmax_t	calc_len_mod(t_fmt *f, va_list ap)
 static void				write_left_align(t_fmt *f, char *num, int num_len)
 {
 	int		i;
-	int pr_or_num;
+	int		pr_or_num;
 
 	pr_or_num = (f->precision > num_len) ? f->precision : num_len;
 	i = 0;

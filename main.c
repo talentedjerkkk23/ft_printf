@@ -2,6 +2,67 @@
 
 #include "ft_printf.h"
 #include <limits.h>
+#include <stdio.h>
+
+struct                    s_ldbits
+{
+    unsigned long        man : 64;
+    unsigned long        exp : 15;
+    unsigned long        sign : 1;
+};
+
+typedef union            u_ldbl
+{
+    long double            f;
+    struct s_ldbits        b;
+}                        t_ldbl;
+
+struct                    s_dbits
+{
+    unsigned long        man : 52;
+    unsigned long        exp : 11;
+    unsigned long        sign : 1;
+};
+
+typedef union            u_dbl
+{
+    double            f;
+    struct s_dbits        b;
+}                        t_dbl;
+
+struct                    s_floatbits
+{
+    unsigned long        man : 23;
+    unsigned long        exp : 8;
+    unsigned long        sign : 1;
+};
+
+typedef union            u_fbl
+{
+    float            f;
+    struct s_floatbits        b;
+}                        t_fbl;
+
+
+
+typedef union	s_ldouble {
+	long double f;
+	unsigned long long u;
+}				t_ldouble;
+
+typedef union	s_double {
+	double f;
+	unsigned long u;
+}				t_double;
+
+typedef union	s_float {
+	float f;
+	unsigned u;
+	unsigned char exp;
+	unsigned long mantissa;
+	char *sign;
+}				t_float;
+
 void decimal_checker()
 {
 	printf("\n<|######--LEFT   ALIGN--######|>\n");
@@ -448,7 +509,7 @@ void	char_checker()
 
 void	float_checker()
 {
-	int i = 0;
+	// int i = 0;
 
 	ft_printf("my: %f|\n", 1.00);
 	printf("og: %f|\n", 1.00);
@@ -472,17 +533,87 @@ void	float_checker()
 	printf("og: %f|\n", 10.01010101);
 	ft_printf("my: %f|\n", 0.0000);
 	printf("og: %f|\n", 0.0000);
-	ft_printf("my: %.2f|\n", 9.9999999);
-	printf("og: %.2f|\n", 9.9999999);
-	ft_printf("my: %.f|\n", 9.9999999);
-	printf("og: %.f|\n", 9.9999999);
-	ft_printf("my: %.f|\n", 999999.99);
-	printf("og: %.f|\n", 999999.99);
+
 	double ff = 89.999;
 	ft_printf("my: %.f|\n", ff);
 	printf("og: %.f|\n", ff);
 	ft_printf("my: %.2f|\n", 189.999);
 	printf("og: %.2f|\n", 189.999);
+	ft_printf("my: %.2f|\n", 9.9999999);
+	printf("og: %.2f|\n", 9.9999999);
+	ft_printf("my: %.f|\n", 9.9999999);
+	printf("og: %.f|\n", 9.9999999);
+
+	ft_printf("my: %.f|\n", 999999.99);
+	printf("og: %.f|\n", 999999.99);
+
+	ft_printf("my: %5.1f|\n", 999999.99);
+	printf("og: %5.1f|\n", 999999.99);
+
+	ft_printf("my: %.2f|\n", 999999.99);
+	printf("og: %.2f|\n", 999999.99);
+
+
+	ft_printf("\n");
+	ft_printf("my: %.2f|\n", 9.9999999);
+	printf("og: %.2f|\n", 9.9999999);
+
+	ft_printf("my: %.f|\n", 9.9999999);
+	printf("og: %.f|\n", 9.9999999);
+
+	ft_printf("my: %.4f|\n", 3.3399999);
+	printf("og: %.4f|\n", 3.3399999);
+
+	ft_printf("my: %+010.4f|\n", 3.3399999);
+	printf("og: %+010.4f|\n", 3.3399999);
+
+	ft_printf("my: %+10.4f|\n", 3.3399999);
+	printf("og: %+10.4f|\n", 3.3399999);
+
+	ft_printf("my: %10.4f|\n", -3.3399999);
+	printf("og: %10.4f|\n", -3.3399999);
+
+	ft_printf("my: % 010.4f|\n", -3.3399999);
+	printf("og: % 010.4f|\n", -3.3399999);
+
+	ft_printf("my: % 010.4f|\n", 3.3399999);
+	printf("og: % 010.4f|\n", 3.3399999);
+
+	ft_printf("my: % 10.4f|\n", 3.3399999);
+	printf("og: % 10.4f|\n", 3.3399999);
+
+	ft_printf("my: %#.f|\n", 999999.99);
+	printf("og: %#.f|\n", 999999.99);
+	ft_printf("\nRIGHT ALIGN \n");
+
+	ft_printf("my: %-#.f|\n", 999999.99);
+	printf("og: %-#.f|\n", 999999.99);
+
+	ft_printf("my: %.2f|\n", 9.9999999);
+	printf("og: %.2f|\n", 9.9999999);
+
+	ft_printf("my: %.f|\n", 9.9999999);
+	printf("og: %.f|\n", 9.9999999);
+
+	ft_printf("my: %-.4f|\n", 3.3399999);
+	printf("og: %-.4f|\n", 3.3399999);
+
+	ft_printf("my: %-+010.4f|\n", 3.3399999);
+	printf("og: %-+010.4f|\n", 3.3399999);
+
+	ft_printf("my: %-+10.4f|\n", 3.3399999);
+	printf("og: %-+10.4f|\n", 3.3399999);
+
+	ft_printf("my: %-10.4f|\n", -3.3399999);
+	printf("og: %-10.4f|\n", -3.3399999);
+
+	ft_printf("my: %-010.4f|\n", -3.3399999);
+	printf("og: %-010.4f|\n", -3.3399999);
+
+	ft_printf("my: %-010.4f|\n", 3.3399999);
+	printf("og: %-010.4f|\n", 3.3399999);
+	// ft_printf("my: %-010.4f|\n", 3.3399999);
+	// printf("og: %-010.4f|\n", 3.3399999);
 }
 
 void str_checker()
@@ -634,52 +765,6 @@ void	convert_float_to_binary(float n)
 	}
 }
 
-/*char *double_to_str(double num, int k_prec)*/
-/*{*/
-	/*char *str = (char*)malloc(sizeof(char) * 200);*/
-	/*ft_bzero(str, 200);*/
-	/*int i = 0;*/
-
-	/*int count = 0;*/
-	/*while (num >= 1.0)*/
-	/*{*/
-		/*printf("\n num : %.50lf", num);*/
-		/*num /= 10.;*/
-		/*count++;*/
-	/*}*/
-	/*printf("\n num : %.50lf\n", num);*/
-	/*int Integral ;*/
-	/*double fractional = num;*/
-	/*if (count == 0)*/
-	/*{*/
-		/*str[i] = '0';*/
-		/*i++;*/
-	/*}*/
-	/*while (count)*/
-	/*{*/
-		/*fractional *= 10.0;*/
-		/*Integral = fractional;*/
-		/*[>int rem = Integral % 10;<]*/
-		/*str[i] = (Integral + '0');*/
-		/*[>Integral /= 10;<]*/
-		/*fractional = fractional - Integral;*/
-		/*i++;*/
-		/*count--;*/
-	/*}*/
-	/*write(1, "\n", 1);*/
-	/*str[i] = '.';*/
-	/*i++;*/
-	/*while (k_prec--)*/
-	/*{*/
-		/*fractional *= 10;*/
-		/*Integral = fractional;*/
-		/*fractional = fractional - Integral;*/
-		/*str[i] = Integral + '0';*/
-		/*i++;*/
-	/*}*/
-	/*return str;*/
-/*}*/
-
 void	convert_longdbl_to_binary(long double n)
 {
 	int		i = 0;
@@ -795,6 +880,34 @@ void	float_to_binary(float n)
 			write(1, " ", 1);
 		j--;
 	}
+}
+
+
+char *long_double_to_str(long double num, int prec)
+{
+	char *str = (char*)malloc(sizeof(char) * 100);
+	ft_bzero(str, 100);
+	int i = 0;
+	unsigned long Integral = num;
+	long double fractional = num - Integral;
+	while (Integral)
+	{
+		int rem = Integral % 10;
+		str[i] = (rem +'0');
+		Integral /= 10;
+		i++;
+	}
+	str[i] = '.';
+	i++;
+	while (prec--)
+	{
+		fractional *= 10;
+		Integral = fractional;
+		fractional = fractional - Integral;
+		str[i] = Integral + '0';
+		i++;
+	}
+	return str;
 }
 
 void	extra_check()
@@ -930,7 +1043,7 @@ int main()
 	/*hex_checker();*/
 	/*octal_checker();*/
 	/*char_checker();*/
-	float_checker();
+	// float_checker();
 	/*str_checker();*/
 	/*ptr_checker();*/
 	/*int fm = ft_printf("%s\n", 0);*/
